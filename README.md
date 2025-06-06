@@ -1,75 +1,75 @@
 # Fravega Challenge
 
-## 🚀 Stack Tecnológico
+## 🚀 Technology Stack
 
 **Frontend:** Next.js 15 (App Router) + React 19 + TypeScript + SCSS Modules  
-**Estado:** TanStack Query v5 + Axios  
-**Calidad:** ESLint + Prettier + Husky
+**State:** TanStack Query v5 + Axios  
+**Quality:** ESLint + Prettier + Husky
 **Testing:** Jest + Testing Library
 
-## 📦 Instalación y Comandos
+## 📦 Installation and Commands
 
 ```bash
-# Instalar y configurar
+# Install and setup
 git clone git@github.com:cardgabriel/fravega-challenge.git
 npm install
 npm run prepare
 
-# Desarrollo
-npm run dev              # Servidor con Turbopack
-npm run build           # Build producción
-npm run start           # Servidor producción
+# Development
+npm run dev              # Development server with Turbopack
+npm run build           # Production build
+npm run start           # Production server
 
-# Calidad
-npm run lint            # Verificar errores
-npm run lint:fix        # Corregir automáticamente
-npm run format          # Formatear código
-npm run type-check      # Verificar tipos
+# Quality
+npm run lint            # Check for errors
+npm run lint:fix        # Auto-fix issues
+npm run format          # Format code
+npm run type-check      # Type checking
 
 # Testing
-npm test                # Tests en modo watch
-npm run test:ci         # Tests con coverage
+npm test                # Tests in watch mode
+npm run test:ci         # Tests with coverage
 ```
 
-## 🏗️ Estructura
+## 🏗️ Structure
 
 ```
-├── app/                    # Aplicación (App Router)
-│   ├── _lib/              # Configuraciones y utilidades
-│   ├── globals.css        # Estilos globales
-│   ├── layout.tsx         # Layout raíz
-│   ├── page.tsx           # Página principal
-│   └── providers.tsx      # Providers React
+├── app/                    # Application (App Router)
+│   ├── _lib/              # Configurations and utilities
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Main page
+│   └── providers.tsx      # React providers
 ├── __tests__/             # Tests
 ├── .husky/                # Git hooks
-└── public/                # Archivos estáticos
+└── public/                # Static files
 ```
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-**Variables de entorno** (`.env.local`):
+**Environment variables** (`.env.local`):
 
 ```env
-NEXT_PUBLIC_API_URL=https://tu-api.com
+NEXT_PUBLIC_API_URL=https://your-api.com
 ```
 
-**Cliente HTTP:** Preconfigurado en `app/_lib/axiosClient.ts` con timeout 10s y headers JSON.
+**HTTP Client:** Pre-configured in `app/_lib/axiosClient.ts` with 10s timeout and JSON headers.
 
-**Git Hooks:** Pre-commit (formateo/linting) y pre-push (tests/build).
+**Git Hooks:** Pre-commit (formatting/linting) and pre-push (tests/build).
 
-## 🧪 Características
+## 🧪 Features
 
-- **Desarrollo ultra-rápido** con Turbopack
-- **Type safety** completo con TypeScript
-- **Gestión de estado** optimizada con TanStack Query
-- **Estilos encapsulados** con SCSS Modules
-- **Testing completo** con coverage automático
-- **Calidad automática** con ESLint, Prettier y git hooks
-- **DevTools** de React Query incluidas
-- **Convenciones:** PascalCase (componentes), camelCase (utilidades), SCSS Modules.
+- **Ultra-fast development** with Turbopack
+- **Complete type safety** with TypeScript
+- **Optimized state management** with TanStack Query
+- **Encapsulated styles** with SCSS Modules
+- **Complete testing** with automatic coverage
+- **Automatic quality** with ESLint, Prettier and git hooks
+- **React Query DevTools** included
+- **Conventions:** PascalCase (components), camelCase (utilities), SCSS Modules.
 
-Abre [http://localhost:3000](http://localhost:3000) después de `npm run dev` para comenzar.
+Open [http://localhost:3000](http://localhost:3000) after running `npm run dev` to get started.
 
 ---
 
-_Proyecto publico - Fravega Challenge_
+_Public Project - Fravega Challenge_
