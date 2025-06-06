@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fravega Challenge
 
-## Getting Started
+## 🚀 Stack Tecnológico
 
-First, run the development server:
+**Frontend:** Next.js 15 (App Router) + React 19 + TypeScript + SCSS Modules  
+**Estado:** TanStack Query v5 + Axios  
+**Calidad:** ESLint + Prettier + Husky
+**Testing:** Jest + Testing Library
+
+## 📦 Instalación y Comandos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Instalar y configurar
+git clone git@github.com:cardgabriel/fravega-challenge.git
+npm install
+npm run prepare
+
+# Desarrollo
+npm run dev              # Servidor con Turbopack
+npm run build           # Build producción
+npm run start           # Servidor producción
+
+# Calidad
+npm run lint            # Verificar errores
+npm run lint:fix        # Corregir automáticamente
+npm run format          # Formatear código
+npm run type-check      # Verificar tipos
+
+# Testing
+npm test                # Tests en modo watch
+npm run test:ci         # Tests con coverage
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🏗️ Estructura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+├── app/                    # Aplicación (App Router)
+│   ├── _lib/              # Configuraciones y utilidades
+│   ├── globals.css        # Estilos globales
+│   ├── layout.tsx         # Layout raíz
+│   ├── page.tsx           # Página principal
+│   └── providers.tsx      # Providers React
+├── __tests__/             # Tests
+├── .husky/                # Git hooks
+└── public/                # Archivos estáticos
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Configuración
 
-## Learn More
+**Variables de entorno** (`.env.local`):
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_API_URL=https://tu-api.com
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Cliente HTTP:** Preconfigurado en `app/_lib/axiosClient.ts` con timeout 10s y headers JSON.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Git Hooks:** Pre-commit (formateo/linting) y pre-push (tests/build).
 
-## Deploy on Vercel
+## 🧪 Características
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Desarrollo ultra-rápido** con Turbopack
+- **Type safety** completo con TypeScript
+- **Gestión de estado** optimizada con TanStack Query
+- **Estilos encapsulados** con SCSS Modules
+- **Testing completo** con coverage automático
+- **Calidad automática** con ESLint, Prettier y git hooks
+- **DevTools** de React Query incluidas
+- **Convenciones:** PascalCase (componentes), camelCase (utilidades), SCSS Modules.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Abre [http://localhost:3000](http://localhost:3000) después de `npm run dev` para comenzar.
+
+---
+
+_Proyecto publico - Fravega Challenge_
