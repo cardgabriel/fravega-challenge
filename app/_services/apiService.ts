@@ -1,5 +1,4 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
-import { RESULTS_PER_PAGE } from '@/app/_lib/constants'
 import { API_PATHS } from '@/app/_lib/paths'
 import { DetailedUser, Repository, UrlBuildParams, User } from '@/app/_models/types'
 
@@ -21,9 +20,9 @@ export async function fetchUsersInfinite(pageParam: number = 0): Promise<UsersPa
 
   const url = API_PATHS.USERS(urlParams)
   const response = await axiosClient.get(url)
-  const users: User[] = response.data
 
-  const nextCursor = users.length === RESULTS_PER_PAGE ? users[users.length - 1].id : undefined
+  // Extract users and nextCursor from the API response
+  const { users, nextCursor } = response.data
 
   return {
     users,

@@ -24,21 +24,15 @@ export async function GET(request: NextRequest) {
       id: user.id,
     }))
 
-    const isInfiniteScroll = searchParams.has('since')
+    const nextCursor =
+      transformedUsers.length === RESULTS_PER_PAGE
+        ? transformedUsers[transformedUsers.length - 1].id
+        : null
 
-    if (isInfiniteScroll) {
-      const nextCursor =
-        transformedUsers.length === RESULTS_PER_PAGE
-          ? transformedUsers[transformedUsers.length - 1].id
-          : undefined
-
-      return NextResponse.json({
-        users: transformedUsers,
-        nextCursor,
-      })
-    }
-
-    return NextResponse.json({ users: transformedUsers })
+    return NextResponse.json({
+      users: transformedUsers,
+      nextCursor,
+    })
   } catch (error) {
     console.error('Error fetching users:', error)
 

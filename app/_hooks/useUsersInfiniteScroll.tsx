@@ -1,5 +1,5 @@
 import { QUERY_KEYS } from '@/app/_lib/queryKeys'
-import { fetchUsersInfinite } from '@/app/_services/apiService'
+import { UsersPage, fetchUsersInfinite } from '@/app/_services/apiService'
 
 import { useEffect } from 'react'
 
@@ -14,7 +14,7 @@ export const useUsersInfiniteScroll = () => {
     useInfiniteQuery({
       queryKey: QUERY_KEYS.GET_USERS_INFINITE,
       queryFn: ({ pageParam = 0 }) => fetchUsersInfinite(pageParam),
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: (lastPage: UsersPage) => {
         return lastPage.nextCursor
       },
       initialPageParam: 0,
@@ -25,8 +25,8 @@ export const useUsersInfiniteScroll = () => {
       fetchNextPage()
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
-  console.log('data', data)
-  const users = data?.pages.flatMap((page) => page.users) ?? []
+
+  const users = data?.pages.flatMap((page: UsersPage) => page.users) ?? []
 
   return {
     users,
