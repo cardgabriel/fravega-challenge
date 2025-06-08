@@ -20,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={workSans.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="page-container">{children}</div>
+        </Providers>
       </body>
     </html>
   )
