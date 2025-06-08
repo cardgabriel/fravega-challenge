@@ -3,6 +3,7 @@
 import { User } from '@/app/_models/types'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import styles from './CardUser.module.scss'
 
@@ -12,9 +13,14 @@ interface CardUserProps {
 }
 
 const CardUser = ({ user, onClick }: CardUserProps) => {
+  const router = useRouter()
+
   const handleClick = () => {
     if (onClick) {
       onClick(user)
+    } else {
+      // Navigate to user detail page
+      router.push(`/user/${user.name}`)
     }
   }
 

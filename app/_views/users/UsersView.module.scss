@@ -30,3 +30,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+.loadingTrigger {
+  padding: 20px;
+  text-align: center;
+  min-height: 50px;
+}
+
+.loadingMore {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.endMessage {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+}

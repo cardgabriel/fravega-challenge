@@ -1,19 +1,28 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-// Custom hook to track when an element enters the viewport
 export const useIntersectionObserver = () => {
   const [inView, setInView] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [node, setNode] = useState<Element | null>(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
-      threshold: 0.1,
-    })
+    if (node) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setInView(entry.isIntersecting)
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '100px',
+        }
+      )
 
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+      observer.observe(node)
 
-  // Return both the ref and the inView state
-  return { ref, inView }
+      return () => {
+        observer.disconnect()
+      }
+    }
+  }, [node])
+
+  return { ref: setNode, inView }
 }

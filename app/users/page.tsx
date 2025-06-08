@@ -3,14 +3,15 @@ import UsersView from '@/app/_views/users/UsersView'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { QUERY_KEYS } from '../_lib/queryKeys'
-import { fetchUsers } from '../_services/apiService'
+import { fetchUsersInfinite } from '../_services/apiService'
 
 const UsersPage = async () => {
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery({
-    queryKey: QUERY_KEYS.GET_USERS,
-    queryFn: () => fetchUsers(),
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: QUERY_KEYS.GET_USERS_INFINITE,
+    queryFn: ({ pageParam = 0 }) => fetchUsersInfinite(pageParam),
+    initialPageParam: 0,
   })
 
   return (

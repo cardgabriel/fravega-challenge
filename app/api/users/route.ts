@@ -1,3 +1,4 @@
+import { RESULTS_PER_PAGE } from '@/app/_lib/constants'
 import { createErrorResponse, handleAxiosError } from '@/app/_lib/errorUtils'
 import { extractPaginationParams } from '@/app/_lib/paginationUtils'
 import { GithubUser } from '@/app/_models/types'
@@ -10,6 +11,7 @@ import { AxiosError } from 'axios'
 export async function GET(request: NextRequest) {
   try {
     const searchParams = new URL(request.url).searchParams
+
     const username = searchParams.get('q')?.trim() || undefined
 
     const pagination = extractPaginationParams(searchParams)
@@ -22,7 +24,21 @@ export async function GET(request: NextRequest) {
       id: user.id,
     }))
 
-    return NextResponse.json(transformedUsers)
+    const isInfiniteScroll = searchParams.has('since')
+
+    if (isInfiniteScroll) {
+      const nextCursor =
+        transformedUsers.length === RESULTS_PER_PAGE
+          ? transformedUsers[transformedUsers.length - 1].id
+          : undefined
+
+      return NextResponse.json({
+        users: transformedUsers,
+        nextCursor,
+      })
+    }
+
+    return NextResponse.json({ users: transformedUsers })
   } catch (error) {
     console.error('Error fetching users:', error)
 

@@ -1,5 +1,4 @@
 import { createErrorResponse, handleAxiosError } from '@/app/_lib/errorUtils'
-import { extractPaginationParams } from '@/app/_lib/paginationUtils'
 import { GithubRepository, Repository } from '@/app/_models/types'
 import { fetchGitHubUserRepos } from '@/app/_services/githubApi'
 
@@ -15,11 +14,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       return createErrorResponse('User ID is required', 400)
     }
 
-    const searchParams = new URL(request.url).searchParams
-
-    const pagination = extractPaginationParams(searchParams)
-
-    const userRepos = await fetchGitHubUserRepos(id, pagination)
+    // Use simplified service that always fetches with fixed page size
+    const userRepos = await fetchGitHubUserRepos(id)
 
     const transformedRepos: Repository[] = userRepos.map((repo: GithubRepository) => ({
       id: repo.id,

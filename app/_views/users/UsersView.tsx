@@ -1,23 +1,13 @@
 'use client'
 
 import CardUser from '@/app/_components/CardUser/CardUser'
-import { QUERY_KEYS } from '@/app/_lib/queryKeys'
-import { fetchUsers } from '@/app/_services/apiService'
-
-import { useQuery } from '@tanstack/react-query'
+import { useUsersInfiniteScroll } from '@/app/_hooks/useUsersInfiniteScroll'
 
 import styles from './UsersView.module.scss'
 
 export default function UsersView() {
-  const {
-    data: users,
-    isLoading,
-    error: queryError,
-    isError,
-  } = useQuery({
-    queryKey: QUERY_KEYS.GET_USERS,
-    queryFn: () => fetchUsers(),
-  })
+  const { users, isLoading, error, isError, triggerRef, isFetchingNextPage, hasNextPage } =
+    useUsersInfiniteScroll()
 
   if (isLoading) {
     return (
@@ -27,7 +17,7 @@ export default function UsersView() {
     )
   }
 
-  const displayError = isError ? (queryError as Error)?.message : null
+  const displayError = isError ? (error as Error)?.message : null
   if (displayError) {
     return (
       <div className={styles.error}>
@@ -41,13 +31,22 @@ export default function UsersView() {
     <div className={styles.container}>
       <h1 className={styles.title}>Lista de Usuarios</h1>
 
-      {users?.length === 0 ? (
+      {users.length === 0 ? (
         <p>No se encontraron usuarios.</p>
       ) : (
         <div className={styles.usersList}>
-          {users?.map((user) => <CardUser key={user.id} user={user} />)}
+          {users.map((user) => (
+            <CardUser key={user.id} user={user} />
+          ))}
         </div>
       )}
+
+      <div ref={triggerRef} className={styles.loadingTrigger}>
+        {isFetchingNextPage && <p className={styles.loadingMore}>Cargando más usuarios...</p>}
+        {!hasNextPage && users.length > 0 && (
+          <p className={styles.endMessage}>No hay más usuarios para mostrar</p>
+        )}
+      </div>
     </div>
   )
 }
