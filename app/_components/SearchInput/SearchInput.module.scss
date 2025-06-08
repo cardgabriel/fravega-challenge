@@ -1,7 +1,7 @@
 .searchContainer {
   width: 100%;
   max-width: 500px;
-  margin: 0 auto 2rem;
+  margin: 0;
 }
 
 .inputWrapper {
@@ -19,6 +19,7 @@
   font-size: 16px;
   transition: all 0.2s ease;
   background-color: #fff;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -28,6 +29,19 @@
 
   &::placeholder {
     color: #6a737d;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 10px 14px;
+    padding-right: 72px;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 8px 12px;
+    padding-right: 68px;
   }
 }
 
@@ -55,6 +69,17 @@
     outline: 2px solid #0366d6;
     outline-offset: 2px;
   }
+
+  @media (max-width: 768px) {
+    right: 10px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    right: 8px;
+    font-size: 14px;
+    padding: 3px;
+  }
 }
 
 .clearButton {
@@ -78,25 +103,15 @@
     outline: 2px solid #0366d6;
     outline-offset: 2px;
   }
-}
 
-@media (max-width: 768px) {
-  .searchContainer {
-    margin: 0 1rem 1.5rem;
-  }
-
-  .searchInput {
-    font-size: 14px;
-    padding: 10px 14px;
-    padding-right: 72px;
-  }
-
-  .searchButton {
+  @media (max-width: 768px) {
     right: 40px;
     font-size: 14px;
   }
 
-  .clearButton {
+  @media (max-width: 480px) {
+    right: 36px;
     font-size: 14px;
+    padding: 3px;
   }
 }

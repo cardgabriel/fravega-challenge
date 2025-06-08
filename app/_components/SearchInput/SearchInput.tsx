@@ -1,19 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styles from './SearchInput.module.scss'
 
 interface SearchInputProps {
   onSearch: (query: string) => void
   placeholder?: string
+  initialValue?: string
 }
 
 export default function SearchInput({
   onSearch,
   placeholder = 'Buscar usuarios...',
+  initialValue = '',
 }: SearchInputProps) {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(initialValue)
+
+  useEffect(() => {
+    setQuery(initialValue)
+  }, [initialValue])
 
   const handleSearch = () => {
     onSearch(query)

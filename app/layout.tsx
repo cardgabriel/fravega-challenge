@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Work_Sans } from 'next/font/google'
 
+import Header from './_components/Header/Header'
 import './_styles/normalize.scss'
 import './_styles/theme.scss'
 import Providers from './providers'
@@ -8,8 +9,8 @@ import Providers from './providers'
 const workSans = Work_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Fravega Challenge',
-  description: 'Fravega Challenge - Frontend',
+  title: 'Github API',
+  description: 'Users list using Github API',
 }
 
 export default function RootLayout({
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html lang="es">
       <body className={workSans.className}>
         <Providers>
+          <Header />
           <div className="page-container">{children}</div>
         </Providers>
       </body>

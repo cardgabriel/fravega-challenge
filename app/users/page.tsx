@@ -1,6 +1,8 @@
 import { QUERY_KEYS } from '@/app/_lib/constants'
 import UsersView from '@/app/_views/users/UsersView'
 
+import { Suspense } from 'react'
+
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { fetchUsersInfinite } from '../_services/apiService'
@@ -16,7 +18,9 @@ const UsersPage = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <UsersView />
+      <Suspense fallback={<div>Cargando...</div>}>
+        <UsersView />
+      </Suspense>
     </HydrationBoundary>
   )
 }

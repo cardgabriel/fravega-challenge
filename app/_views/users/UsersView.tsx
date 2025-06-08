@@ -1,22 +1,18 @@
 'use client'
 
 import CardUser from '@/app/_components/CardUser/CardUser'
-import SearchInput from '@/app/_components/SearchInput/SearchInput'
 import { useUsersInfiniteScroll } from '@/app/_hooks/useUsersInfiniteScroll'
 
-import { useCallback, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 import styles from './UsersView.module.scss'
 
 export default function UsersView() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const searchParams = useSearchParams()
+  const searchQuery = searchParams.get('q') || ''
 
   const { users, isLoading, error, isError, triggerRef, isFetchingNextPage, hasNextPage } =
     useUsersInfiniteScroll(searchQuery)
-
-  const handleSearch = useCallback((query: string) => {
-    setSearchQuery(query.trim())
-  }, [])
 
   if (isLoading) {
     return (
@@ -40,7 +36,11 @@ export default function UsersView() {
     <div className={styles.container}>
       <h1 className={styles.title}>Lista de Usuarios</h1>
 
-      <SearchInput onSearch={handleSearch} placeholder="Buscar usuarios por nombre..." />
+      {searchQuery && (
+        <p className={styles.searchInfo}>
+          Resultados para: <strong>&quot;{searchQuery}&quot;</strong>
+        </p>
+      )}
 
       {users.length === 0 ? (
         <p>No se encontraron usuarios.</p>

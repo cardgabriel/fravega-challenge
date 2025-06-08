@@ -12,6 +12,9 @@
   cursor: pointer;
   transition: all 0.2s ease;
   background-color: var(--surface);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 
   &:hover {
     box-shadow: var(--shadow);
@@ -24,7 +27,7 @@
   }
 
   @media (min-width: 768px) {
-    grid-template-columns: 75px auto;
+    grid-template-columns: 75px 1fr;
     grid-template-areas: 'avatar info';
     align-items: center;
   }
@@ -33,6 +36,7 @@
 .avatar {
   grid-area: avatar;
   justify-self: center;
+  flex-shrink: 0;
 
   img {
     width: 75px;
@@ -53,6 +57,8 @@
   flex-direction: column;
   gap: 8px;
   text-align: center;
+  min-width: 0;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     text-align: left;
@@ -63,12 +69,19 @@
   font-size: 18px;
   font-weight: 600;
   color: var(--foreground);
+  min-width: 0;
 
   span {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 100%;
+    word-break: break-all;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 16px;
   }
 }
 
@@ -76,4 +89,17 @@
   font-size: 14px;
   color: var(--color-gray);
   font-weight: 400;
+  min-width: 0;
+
+  span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 13px;
+  }
 }
