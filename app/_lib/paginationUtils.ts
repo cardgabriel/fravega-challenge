@@ -1,4 +1,4 @@
-import { PaginationParams } from '@/app/_models/types'
+import { UrlBuildParams } from '@/app/_models/types'
 
 /**
  * Extracts and processes pagination parameters from URL search params
@@ -9,7 +9,7 @@ import { PaginationParams } from '@/app/_models/types'
 export function extractPaginationParams(
   searchParams: URLSearchParams,
   defaultPerPage: number = 40
-): PaginationParams | undefined {
+): UrlBuildParams | undefined {
   const since = searchParams.get('since')
   const per_page = searchParams.get('per_page')
 
@@ -22,24 +22,38 @@ export function extractPaginationParams(
   // Remove undefined values to keep the object clean
   const cleanPagination = Object.fromEntries(
     Object.entries(pagination).filter(([, value]) => value !== undefined)
-  ) as PaginationParams
+  ) as UrlBuildParams
 
   // Return undefined if no pagination params were provided
   return Object.keys(cleanPagination).length > 0 ? cleanPagination : undefined
 }
 
 /**
- * Helper function to build URL with pagination params
- * @param baseUrl - The base URL to append pagination params to
- * @param pagination - Optional pagination parameters
- * @returns URL with pagination parameters if provided
+ * Build URL with optional search and pagination parameters
+ * @param baseUrl - Base URL
+ * @param params - Optional object containing search and pagination parameters
+ * @returns URL with query parameters if provided
  */
-export const buildUrlWithPagination = (baseUrl: string, pagination?: PaginationParams): string => {
-  if (!pagination) return baseUrl
+export function buildUrlWithParams(baseUrl: string, params?: UrlBuildParams): string {
+  if (!params || (!params.searchQuery && !params.since && !params.per_page)) {
+    return baseUrl
+  }
 
-  const params = new URLSearchParams()
-  if (pagination.since) params.append('since', pagination.since.toString())
-  if (pagination.per_page) params.append('per_page', pagination.per_page.toString())
+  const urlParams = new URLSearchParams()
 
-  return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl
+  // Add search query if provided
+  if (params.searchQuery) {
+    urlParams.append('q', params.searchQuery)
+  }
+
+  // Add pagination parameters if provided
+  if (params.since) {
+    urlParams.append('since', params.since.toString())
+  }
+
+  if (params.per_page) {
+    urlParams.append('per_page', params.per_page.toString())
+  }
+
+  return urlParams.toString() ? `${baseUrl}?${urlParams.toString()}` : baseUrl
 }

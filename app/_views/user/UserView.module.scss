@@ -1,0 +1,63 @@
+.container {
+  padding: 16px;
+}
+
+.userCard {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.userInfo {
+  display: flex;
+  gap: 16px;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.userName {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.reposSection {
+  padding: 16px;
+}
+
+.reposTitle {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.reposGrid {
+  display: grid;
+  gap: 16px;
+}
+
+.repoCard {
+  padding: 16px;
+  border: 1px solid #ccc;
+}
+
+.repoName {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.loading {
+  padding: 16px;
+  text-align: center;
+}
+
+.error {
+  padding: 16px;
+  text-align: center;
+}
+
+.noUserId {
+  padding: 16px;
+  text-align: center;
+}

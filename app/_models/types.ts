@@ -33,7 +33,8 @@ export interface Repository {
 }
 
 // Pagination interface for GitHub API requests
-export interface PaginationParams {
+export interface UrlBuildParams {
+  searchQuery?: string
   since?: number
   per_page?: number
 }
