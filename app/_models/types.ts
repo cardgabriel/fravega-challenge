@@ -1,5 +1,6 @@
 // User types for API responses
 export interface User {
+  id: number
   avatar_url: string
   name: string
 }
