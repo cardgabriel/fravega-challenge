@@ -1,5 +1,6 @@
 'use client'
 
+import { formatDate } from '@/app/_lib/dateUtils'
 import { DetailedUser, Repository } from '@/app/_models/types'
 import { fetchGitHubUser, fetchGitHubUserRepos } from '@/app/_services/githubApi'
 
@@ -9,6 +10,46 @@ import styles from './UserView.module.scss'
 
 interface UserViewProps {
   userId: string
+}
+
+// Simple component for repository content
+function RepositoriesContent({
+  repos,
+  isLoading,
+  error,
+}: {
+  repos: Repository[] | undefined
+  isLoading: boolean
+  error: unknown
+}) {
+  if (isLoading) return <p>Loading repositories...</p>
+  if (error) return <p>Error loading repositories</p>
+  if (!repos || repos.length === 0) return <p>No repositories found</p>
+
+  return (
+    <div className={styles.reposGrid}>
+      {repos.map((repo) => (
+        <div key={repo.id} className={styles.repoCard}>
+          <h3>
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.repoName}
+            >
+              {repo.name}
+            </a>
+          </h3>
+          {repo.description && <p>{repo.description}</p>}
+          <div>
+            {repo.language && <span>💻 {repo.language}</span>}
+            <span>⭐ {repo.stargazers_count}</span>
+            <span>📅 Updated: {formatDate(repo.updated_at)}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export const UserView = ({ userId }: UserViewProps) => {
@@ -32,29 +73,25 @@ export const UserView = ({ userId }: UserViewProps) => {
     enabled: !!userId,
   })
 
-  if (!userId) {
+  // Early returns for error states
+  if (!userId)
     return (
       <div className={styles.noUserId}>
         <p>No user ID provided</p>
       </div>
     )
-  }
-
-  if (userLoading) {
+  if (userLoading)
     return (
       <div className={styles.loading}>
         <p>Loading user details...</p>
       </div>
     )
-  }
-
-  if (userError || !user) {
+  if (userError || !user)
     return (
       <div className={styles.error}>
         <p>Error loading user details</p>
       </div>
     )
-  }
 
   return (
     <div className={styles.container}>
@@ -78,41 +115,7 @@ export const UserView = ({ userId }: UserViewProps) => {
       {/* Repositories Section */}
       <div className={styles.reposSection}>
         <h2 className={styles.reposTitle}>Repositories</h2>
-
-        {reposLoading ? (
-          <p>Loading repositories...</p>
-        ) : reposError ? (
-          <p>Error loading repositories</p>
-        ) : !repos || repos.length === 0 ? (
-          <p>No repositories found</p>
-        ) : (
-          <div className={styles.reposGrid}>
-            {repos.map((repo) => (
-              <div key={repo.id} className={styles.repoCard}>
-                <div>
-                  <div>
-                    <h3>
-                      <a
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.repoName}
-                      >
-                        {repo.name}
-                      </a>
-                    </h3>
-                    {repo.description && <p>{repo.description}</p>}
-                    <div>
-                      {repo.language && <span>💻 {repo.language}</span>}
-                      <span>⭐ {repo.stargazers_count}</span>
-                      <span>📅 Updated: {new Date(repo.updated_at).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <RepositoriesContent repos={repos} isLoading={reposLoading} error={reposError} />
       </div>
     </div>
   )

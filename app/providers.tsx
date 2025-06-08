@@ -1,7 +1,15 @@
 'use client'
 
+import dynamic from 'next/dynamic'
+
 import { QueryClient, QueryClientProvider, isServer } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const ReactQueryDevtools = dynamic(
+  () => import('@tanstack/react-query-devtools').then((d) => ({ default: d.ReactQueryDevtools })),
+  {
+    ssr: false,
+  }
+)
 
 function makeQueryClient() {
   return new QueryClient({
@@ -22,11 +30,8 @@ let browserQueryClient: QueryClient | undefined = undefined
 
 function getQueryClient() {
   if (isServer) {
-    // Server: always make a new query client
     return makeQueryClient()
   } else {
-    // Browser: make a new query client if we don't have one yet
-    // This prevents making a new client if React suspends during first render
     if (!browserQueryClient) browserQueryClient = makeQueryClient()
     return browserQueryClient
   }
