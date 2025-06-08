@@ -1,20 +1,25 @@
 import { createErrorResponse, handleAxiosError } from '@/app/_lib/errorUtils'
-import { GithubRepository, Repository } from '@/app/_models/user.types'
+import { extractPaginationParams } from '@/app/_lib/paginationUtils'
+import { GithubRepository, Repository } from '@/app/_models/types'
 import { fetchGitHubUserRepos } from '@/app/_services/githubApi'
 
 import { NextRequest, NextResponse } from 'next/server'
 
 import { AxiosError } from 'axios'
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params
+    const { id } = await params
 
     if (!id || id.trim() === '') {
       return createErrorResponse('User ID is required', 400)
     }
 
-    const userRepos = await fetchGitHubUserRepos(id)
+    const searchParams = new URL(request.url).searchParams
+
+    const pagination = extractPaginationParams(searchParams)
+
+    const userRepos = await fetchGitHubUserRepos(id, pagination)
 
     const transformedRepos: Repository[] = userRepos.map((repo: GithubRepository) => ({
       id: repo.id,

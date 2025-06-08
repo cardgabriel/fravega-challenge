@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/app/_models/user.types'
+import { ErrorResponse } from '@/app/_models/types'
 
 import { NextResponse } from 'next/server'
 

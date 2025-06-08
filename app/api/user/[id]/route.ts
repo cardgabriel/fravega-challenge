@@ -1,14 +1,14 @@
 import { createErrorResponse, handleAxiosError } from '@/app/_lib/errorUtils'
-import { DetailedUser } from '@/app/_models/user.types'
+import { DetailedUser } from '@/app/_models/types'
 import { fetchGitHubUser } from '@/app/_services/githubApi'
 
 import { NextRequest, NextResponse } from 'next/server'
 
 import { AxiosError } from 'axios'
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params
+    const { id } = await params
 
     if (!id || id.trim() === '') {
       return createErrorResponse('User ID is required', 400)

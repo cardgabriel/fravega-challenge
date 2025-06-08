@@ -32,6 +32,12 @@ export interface Repository {
   updated_at: string
 }
 
+// Pagination interface for GitHub API requests
+export interface PaginationParams {
+  since?: number
+  per_page?: number
+}
+
 // GitHub API user structure
 export interface GithubUser {
   name?: string | null
