@@ -9,6 +9,29 @@ export interface ErrorResponse {
   error: string
 }
 
+// Detailed user response for individual user endpoint
+export interface DetailedUser {
+  avatar: string
+  username: string
+  name: string | null
+  company: string | null
+  location: string | null
+  followers_count: number
+  following_count: number
+}
+
+// Repository type
+export interface Repository {
+  id: number
+  name: string
+  full_name: string
+  description: string | null
+  html_url: string
+  stargazers_count: number
+  language: string | null
+  updated_at: string
+}
+
 // GitHub API user structure
 export interface GithubUser {
   name?: string | null
@@ -33,4 +56,22 @@ export interface GithubUser {
   site_admin: boolean
   starred_at?: string
   user_view_type?: string
+  // Additional fields for detailed user info
+  company?: string | null
+  location?: string | null
+  followers?: number
+  following?: number
+  public_repos?: number
+}
+
+// GitHub API repository structure
+export interface GithubRepository {
+  id: number
+  name: string
+  full_name: string
+  description: string | null
+  html_url: string
+  stargazers_count: number
+  language: string | null
+  updated_at: string
 }
