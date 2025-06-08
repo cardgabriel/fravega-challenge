@@ -1,14 +1,10 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
+import { ErrorResponse, GithubUser, User } from '@/app/_models/user.types'
 import { GITHUB_PATHS } from '@/app/_paths/paths'
 
 import { NextRequest, NextResponse } from 'next/server'
 
 import { AxiosError } from 'axios'
-
-// Types
-interface ErrorResponse {
-  error: string
-}
 
 // Error mappings - Configuration
 const ERROR_MAP = {
@@ -36,10 +32,18 @@ const handleAxiosError = (error: AxiosError): NextResponse<ErrorResponse> => {
     : createErrorResponse('GitHub API unavailable', 503)
 }
 
-const fetchGitHubUsers = async (username?: string) => {
+const fetchGitHubUsers = async (username?: string): Promise<User[]> => {
   const url = username ? GITHUB_PATHS.SEARCH_USERS(username) : GITHUB_PATHS.GET_ALL_USERS()
   const response = await axiosClient.get(url)
-  return response.data
+
+  // Handle different response structures
+  const users = username ? response.data.items : response.data
+
+  // Transform users to only include avatar_url and login (as name)
+  return users.map((user: GithubUser) => ({
+    avatar_url: user.avatar_url,
+    name: user.login,
+  }))
 }
 
 // Main handler

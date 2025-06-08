@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Work_Sans } from 'next/font/google'
 
-import './globals.css'
+import './_styles/normalize.scss'
+import './_styles/theme.scss'
 import Providers from './providers'
 
-const inter = Inter({ subsets: ['latin'] })
+const workSans = Work_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Template Modular',
-  description: 'Arquitectura modular preparada para monorepo',
+  title: 'Fravega Challenge',
+  description: 'Fravega Challenge - Frontend',
 }
 
 export default function RootLayout({
@@ -18,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body className={workSans.className}>
         <Providers>{children}</Providers>
       </body>
     </html>

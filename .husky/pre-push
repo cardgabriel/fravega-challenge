@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Ejecutar tests antes de hacer push
-npm run test:ci
+npm run test
 
 # Verificar que el build funciona correctamente
 npm run build 
