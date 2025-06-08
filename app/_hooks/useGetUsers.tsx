@@ -7,7 +7,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 
 import { useIntersectionObserver } from './useIntersectionObserver'
 
-export const useUsersInfiniteScroll = (searchQuery?: string) => {
+export const useGetUsers = (searchQuery?: string) => {
   const { ref, inView } = useIntersectionObserver()
 
   const { data, isLoading, error, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =

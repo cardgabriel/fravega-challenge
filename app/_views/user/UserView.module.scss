@@ -3,24 +3,137 @@
 }
 
 .userCard {
-  padding: 16px;
-  margin-bottom: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  background-color: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.userInfo {
+.userHeader {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
 }
 
 .avatar {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
+  border: 3px solid var(--border-color);
+  object-fit: cover;
+}
+
+.userBasicInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .userName {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.username {
+  font-size: 18px;
+  color: var(--color-gray);
+  margin: 0;
+  font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: var(--foreground);
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.metaIcon {
+  font-size: 18px;
+}
+
+.userStats {
+  display: flex;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    gap: 32px;
+  }
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+}
+
+.statIcon {
+  font-size: 18px;
+}
+
+.statNumber {
+  font-weight: 700;
+  color: var(--foreground);
+  font-size: 18px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.statLabel {
+  color: var(--color-gray);
+  font-weight: 500;
 }
 
 .reposSection {

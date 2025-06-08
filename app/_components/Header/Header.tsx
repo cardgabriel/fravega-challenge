@@ -46,7 +46,7 @@ export default function Header() {
         <div className={styles.searchSection}>
           <SearchInput
             onSearch={handleSearch}
-            placeholder="Buscar usuarios por nombre..."
+            placeholder="Search users..."
             initialValue={searchQuery}
           />
         </div>

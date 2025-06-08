@@ -6,6 +6,8 @@ export const RESULTS_PER_PAGE = 40
 
 export const QUERY_KEYS = {
   GET_USERS_INFINITE: 'get-users-infinite',
+  GET_USER: 'get-user',
+  GET_USER_REPOS: 'get-user-repos',
 }
 
 export const API_PATHS = {

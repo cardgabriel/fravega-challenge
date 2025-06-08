@@ -1,4 +1,10 @@
+import { QUERY_KEYS } from '@/app/_lib/constants'
+import { fetchUserById, fetchUserRepositories } from '@/app/_services/apiService'
 import { UserView } from '@/app/_views/user/UserView'
+
+import { Suspense } from 'react'
+
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 interface UserPageProps {
   params: Promise<{
@@ -8,7 +14,26 @@ interface UserPageProps {
 
 const UserPage = async ({ params }: UserPageProps) => {
   const { username } = await params
-  return <UserView userId={username} />
+  const queryClient = new QueryClient()
+
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: [QUERY_KEYS.GET_USER, username],
+      queryFn: () => fetchUserById(username),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: [QUERY_KEYS.GET_USER_REPOS, username],
+      queryFn: () => fetchUserRepositories(username),
+    }),
+  ])
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Suspense fallback={<div>Cargando...</div>}>
+        <UserView userId={username} />
+      </Suspense>
+    </HydrationBoundary>
+  )
 }
 
 export default UserPage

@@ -12,7 +12,7 @@ interface SearchInputProps {
 
 export default function SearchInput({
   onSearch,
-  placeholder = 'Buscar usuarios...',
+  placeholder = 'Search users...',
   initialValue = '',
 }: SearchInputProps) {
   const [query, setQuery] = useState(initialValue)
@@ -56,8 +56,8 @@ export default function SearchInput({
             ✕
           </button>
         )}
-        <button onClick={handleSearch} className={styles.searchButton} aria-label="Buscar">
-          BUSCAR
+        <button onClick={handleSearch} className={styles.searchButton} aria-label="Search">
+          SEARCH
         </button>
       </div>
     </div>

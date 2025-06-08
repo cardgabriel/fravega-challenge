@@ -1,7 +1,7 @@
 'use client'
 
 import CardUser from '@/app/_components/CardUser/CardUser'
-import { useUsersInfiniteScroll } from '@/app/_hooks/useUsersInfiniteScroll'
+import { useGetUsers } from '@/app/_hooks/useGetUsers'
 
 import { useSearchParams } from 'next/navigation'
 
@@ -12,7 +12,7 @@ export default function UsersView() {
   const searchQuery = searchParams.get('q') || ''
 
   const { users, isLoading, error, isError, triggerRef, isFetchingNextPage, hasNextPage } =
-    useUsersInfiniteScroll(searchQuery)
+    useGetUsers(searchQuery)
 
   if (isLoading) {
     return (
@@ -27,14 +27,14 @@ export default function UsersView() {
     return (
       <div className={styles.error}>
         <h1>Error</h1>
-        <p>Error al cargar los usuarios: {displayError}</p>
+        <p>Error loading users: {displayError}</p>
       </div>
     )
   }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Lista de Usuarios</h1>
+      <h1 className={styles.title}>Users List</h1>
 
       {searchQuery && (
         <p className={styles.searchInfo}>
@@ -43,7 +43,7 @@ export default function UsersView() {
       )}
 
       {users.length === 0 ? (
-        <p>No se encontraron usuarios.</p>
+        <p>No users found.</p>
       ) : (
         <div className={styles.usersList}>
           {users.map((user) => (
@@ -53,9 +53,9 @@ export default function UsersView() {
       )}
 
       <div ref={triggerRef} className={styles.loadingTrigger}>
-        {isFetchingNextPage && <p className={styles.loadingMore}>Cargando más usuarios...</p>}
+        {isFetchingNextPage && <p className={styles.loadingMore}>Loading more users...</p>}
         {!hasNextPage && users.length > 0 && (
-          <p className={styles.endMessage}>No hay más usuarios para mostrar</p>
+          <p className={styles.endMessage}>No more users to show</p>
         )}
       </div>
     </div>
