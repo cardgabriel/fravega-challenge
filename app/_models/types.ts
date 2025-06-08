@@ -37,7 +37,6 @@ export interface Repository {
 export interface UrlBuildParams {
   searchQuery?: string
   since?: number
-  // per_page is always 40, no need to make it configurable
 }
 
 // GitHub API user structure

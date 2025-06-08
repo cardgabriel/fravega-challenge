@@ -1,5 +1,5 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
-import { API_PATHS } from '@/app/_lib/paths'
+import { API_PATHS } from '@/app/_lib/constants'
 import { DetailedUser, Repository, UrlBuildParams, User } from '@/app/_models/types'
 
 export interface UsersPage {
@@ -13,9 +13,13 @@ export async function fetchUsers(username?: string, urlParams?: UrlBuildParams):
   return response.data
 }
 
-export async function fetchUsersInfinite(pageParam: number = 0): Promise<UsersPage> {
+export async function fetchUsersInfinite(
+  pageParam: number = 0,
+  searchQuery?: string
+): Promise<UsersPage> {
   const urlParams: UrlBuildParams = {
     since: pageParam,
+    searchQuery,
   }
 
   const url = API_PATHS.USERS(urlParams)

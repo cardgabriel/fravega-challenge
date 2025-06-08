@@ -1,5 +1,5 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
-import { GITHUB_PATHS } from '@/app/_lib/paths'
+import { GITHUB_PATHS } from '@/app/_lib/constants'
 import { UrlBuildParams } from '@/app/_models/types'
 
 export async function fetchGitHubUsers(username?: string, urlParams?: UrlBuildParams) {
@@ -14,7 +14,6 @@ export async function fetchGitHubUser(id: string) {
 }
 
 export async function fetchGitHubUserRepos(id: string) {
-  // GitHub API always returns 40 results per page by default
   const response = await axiosClient.get(GITHUB_PATHS.GET_USER_REPOS(id))
   return response.data
 }
