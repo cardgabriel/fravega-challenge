@@ -19,6 +19,9 @@ export const UserView = ({ userId }: UserViewProps) => {
     repositories,
     isLoading: reposLoading,
     error: reposError,
+    isFetchingNextPage,
+    hasNextPage,
+    triggerRef,
   } = useGetUserRepositories(userId)
 
   if (!userId) {
@@ -82,12 +85,10 @@ export const UserView = ({ userId }: UserViewProps) => {
 
           <div className={styles.userStats}>
             <div className={styles.statItem}>
-              <span className={styles.statIcon}>👥</span>
               <span className={styles.statNumber}>{user.followers_count}</span>
               <span className={styles.statLabel}>followers</span>
             </div>
             <div className={styles.statItem}>
-              <span className={styles.statIcon}>👤</span>
               <span className={styles.statNumber}>{user.following_count}</span>
               <span className={styles.statLabel}>following</span>
             </div>
@@ -102,11 +103,18 @@ export const UserView = ({ userId }: UserViewProps) => {
         ) : !repositories?.length ? (
           <p>No repositories found</p>
         ) : (
-          <div className={styles.reposGrid}>
-            {repositories.map((repo: Repository) => (
-              <CardRepository key={repo.id} repository={repo} />
-            ))}
-          </div>
+          <>
+            <div className={styles.reposGrid}>
+              {repositories.map((repo: Repository) => (
+                <CardRepository key={`${repo.id}-${repo.full_name}`} repository={repo} />
+              ))}
+            </div>
+            {hasNextPage && (
+              <div ref={triggerRef} className={styles.loadingMore}>
+                {isFetchingNextPage ? 'Loading more...' : ''}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

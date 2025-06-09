@@ -1,6 +1,5 @@
 import { RESULTS_PER_PAGE } from '@/app/_lib/constants'
 import { createErrorResponse, handleAxiosError } from '@/app/_lib/errorUtils'
-import { extractPaginationParams } from '@/app/_lib/paginationUtils'
 import { GithubUser } from '@/app/_models/types'
 import { fetchGitHubUsers } from '@/app/_services/githubApi'
 
@@ -12,11 +11,8 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = new URL(request.url).searchParams
 
-    const username = searchParams.get('q')?.trim() || undefined
-
-    const pagination = extractPaginationParams(searchParams)
-
-    const users = await fetchGitHubUsers(username, pagination)
+    const since = searchParams.get('since')?.trim() || undefined
+    const users = await fetchGitHubUsers({ since: Number(since) })
 
     const transformedUsers = users.map((user: GithubUser) => ({
       avatar_url: user.avatar_url,

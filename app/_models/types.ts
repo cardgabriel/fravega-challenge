@@ -37,6 +37,8 @@ export interface Repository {
 export interface UrlBuildParams {
   searchQuery?: string
   since?: number
+  page?: number
+  q?: string
 }
 
 // GitHub API user structure
@@ -81,4 +83,14 @@ export interface GithubRepository {
   stargazers_count: number
   language: string | null
   updated_at: string
+}
+
+export interface UsersPage {
+  users: User[]
+  nextCursor?: number
+}
+
+export interface RepositoriesPage {
+  repositories: Repository[]
+  nextCursor: number | null
 }

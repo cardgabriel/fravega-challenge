@@ -21,9 +21,10 @@ const UserPage = async ({ params }: UserPageProps) => {
       queryKey: [QUERY_KEYS.GET_USER, username],
       queryFn: () => fetchUserById(username),
     }),
-    queryClient.prefetchQuery({
+    queryClient.prefetchInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_USER_REPOS, username],
-      queryFn: () => fetchUserRepositories(username),
+      queryFn: ({ pageParam = 1 }) => fetchUserRepositories(username, pageParam),
+      initialPageParam: 1,
     }),
   ])
 

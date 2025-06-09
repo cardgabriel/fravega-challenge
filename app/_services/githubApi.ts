@@ -2,10 +2,10 @@ import { axiosClient } from '@/app/_lib/axiosClient'
 import { GITHUB_PATHS } from '@/app/_lib/constants'
 import { UrlBuildParams } from '@/app/_models/types'
 
-export async function fetchGitHubUsers(username?: string, urlParams?: UrlBuildParams) {
-  const url = username ? GITHUB_PATHS.SEARCH_USERS(username) : GITHUB_PATHS.GET_ALL_USERS(urlParams)
+export async function fetchGitHubUsers({ since }: { since?: number }) {
+  const url = GITHUB_PATHS.GET_ALL_USERS({ since })
   const response = await axiosClient.get(url)
-  return username ? response.data.items : response.data
+  return response.data
 }
 
 export async function fetchGitHubUser(id: string) {
@@ -13,7 +13,7 @@ export async function fetchGitHubUser(id: string) {
   return response.data
 }
 
-export async function fetchGitHubUserRepos(id: string) {
-  const response = await axiosClient.get(GITHUB_PATHS.GET_USER_REPOS(id))
+export async function fetchGitHubUserRepos(id: string, urlParams?: UrlBuildParams) {
+  const response = await axiosClient.get(GITHUB_PATHS.GET_USER_REPOS(id, urlParams))
   return response.data
 }

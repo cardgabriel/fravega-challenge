@@ -9,14 +9,25 @@ import { UrlBuildParams } from '@/app/_models/types'
  */
 export function extractPaginationParams(searchParams: URLSearchParams): UrlBuildParams | undefined {
   const since = searchParams.get('since')
+  const page = searchParams.get('page')
 
-  if (!since) {
-    return undefined
+  const params: UrlBuildParams = {}
+
+  if (since) {
+    const sinceNumber = parseInt(since, 10)
+    if (!isNaN(sinceNumber) && sinceNumber >= 0) {
+      params.since = sinceNumber
+    }
   }
 
-  return {
-    since: parseInt(since, 10),
+  if (page) {
+    const pageNumber = parseInt(page, 10)
+    if (!isNaN(pageNumber) && pageNumber > 0) {
+      params.page = pageNumber
+    }
   }
+
+  return Object.keys(params).length > 0 ? params : undefined
 }
 
 /**
@@ -44,6 +55,10 @@ export function buildUrlWithParams(baseUrl: string, params?: UrlBuildParams): st
   // Add pagination parameters if provided
   if (params.since) {
     urlParams.append('since', params.since.toString())
+  }
+
+  if (params.page) {
+    urlParams.append('page', params.page.toString())
   }
 
   return `${baseUrl}?${urlParams.toString()}`

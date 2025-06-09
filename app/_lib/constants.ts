@@ -11,30 +11,35 @@ export const QUERY_KEYS = {
 }
 
 export const API_PATHS = {
-  USERS: (urlParams?: UrlBuildParams) => {
+  USERS: (urlParams?: Pick<UrlBuildParams, 'searchQuery' | 'since' | 'page'>) => {
     return buildUrlWithParams('/api/users', {
       searchQuery: urlParams?.searchQuery,
       since: urlParams?.since,
     })
   },
   USER_BY_ID: (id: string) => `/api/user/${id}`,
-  USER_REPOS: (id: string) => {
-    return buildUrlWithParams(`/api/user/${id}/repos`)
+  USER_REPOS: (username: string, urlParams?: Pick<UrlBuildParams, 'page'>) => {
+    return buildUrlWithParams(`/api/user/${username}/repos`, {
+      page: urlParams?.page,
+    })
   },
 }
 
 export const GITHUB_PATHS = {
-  GET_ALL_USERS: (urlParams?: UrlBuildParams) => {
+  GET_ALL_USERS: ({ since }: { since?: number }) => {
     return buildUrlWithParams('https://api.github.com/users', {
-      since: urlParams?.since,
+      since,
     })
   },
-  SEARCH_USERS: (username: string) =>
+  SEARCH_USERS: (username: string, urlParams?: Pick<UrlBuildParams, 'page'>) =>
     buildUrlWithParams('https://api.github.com/search/users', {
       searchQuery: username,
+      page: urlParams?.page,
     }),
   GET_USER_BY_ID: (id: string) => `https://api.github.com/users/${id}`,
-  GET_USER_REPOS: (id: string) => {
-    return buildUrlWithParams(`https://api.github.com/users/${id}/repos`)
+  GET_USER_REPOS: (id: string, urlParams?: Pick<UrlBuildParams, 'page'>) => {
+    return buildUrlWithParams(`https://api.github.com/users/${id}/repos`, {
+      page: urlParams?.page,
+    })
   },
 }

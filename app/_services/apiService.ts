@@ -1,11 +1,12 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
 import { API_PATHS } from '@/app/_lib/constants'
-import { DetailedUser, Repository, UrlBuildParams, User } from '@/app/_models/types'
-
-export interface UsersPage {
-  users: User[]
-  nextCursor?: number
-}
+import {
+  DetailedUser,
+  RepositoriesPage,
+  UrlBuildParams,
+  User,
+  UsersPage,
+} from '@/app/_models/types'
 
 export async function fetchUsers(username?: string, urlParams?: UrlBuildParams): Promise<User[]> {
   const url = API_PATHS.USERS(urlParams)
@@ -25,12 +26,11 @@ export async function fetchUsersInfinite(
   const url = API_PATHS.USERS(urlParams)
   const response = await axiosClient.get(url)
 
-  // Extract users and nextCursor from the API response
   const { users, nextCursor } = response.data
 
   return {
     users,
-    nextCursor,
+    nextCursor: nextCursor ?? null,
   }
 }
 
@@ -40,9 +40,21 @@ export async function fetchUserById(id: string): Promise<DetailedUser> {
   return response.data
 }
 
-export async function fetchUserRepositories(id: string): Promise<Repository[]> {
-  // GitHub API always returns 40 results per page by default
-  const url = API_PATHS.USER_REPOS(id)
+export async function fetchUserRepositories(
+  username: string,
+  pageParam: number = 1
+): Promise<RepositoriesPage> {
+  const urlParams: UrlBuildParams = {
+    page: pageParam,
+  }
+
+  const url = API_PATHS.USER_REPOS(username, urlParams)
   const response = await axiosClient.get(url)
-  return response.data
+
+  const { repositories, nextCursor } = response.data
+
+  return {
+    repositories,
+    nextCursor: nextCursor ?? null,
+  }
 }

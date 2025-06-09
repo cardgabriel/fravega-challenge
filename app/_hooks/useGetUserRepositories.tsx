@@ -1,24 +1,27 @@
 import { QUERY_KEYS } from '@/app/_lib/constants'
-import { fetchUsersInfinite } from '@/app/_services/apiService'
+import { Repository } from '@/app/_models/types'
+import { fetchUserRepositories } from '@/app/_services/apiService'
 
 import { useEffect } from 'react'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
 
-import { UsersPage } from '../_models/types'
 import { useIntersectionObserver } from './useIntersectionObserver'
 
-export const useGetUsers = (searchQuery?: string) => {
+interface RepositoriesPage {
+  repositories: Repository[]
+  nextCursor: number | null
+}
+
+export const useGetUserRepositories = (userId: string) => {
   const { ref, inView } = useIntersectionObserver()
 
   const { data, isLoading, error, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: [QUERY_KEYS.GET_USERS_INFINITE, searchQuery || ''],
-      queryFn: ({ pageParam = 0 }) => fetchUsersInfinite(pageParam, searchQuery),
-      getNextPageParam: (lastPage: UsersPage) => {
-        return lastPage.nextCursor
-      },
-      initialPageParam: 0,
+      queryKey: [QUERY_KEYS.GET_USER_REPOS, userId],
+      queryFn: ({ pageParam = 1 }) => fetchUserRepositories(userId, pageParam),
+      getNextPageParam: (lastPage: RepositoriesPage) => lastPage.nextCursor,
+      initialPageParam: 1,
     })
 
   useEffect(() => {
@@ -27,10 +30,10 @@ export const useGetUsers = (searchQuery?: string) => {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
 
-  const users = data?.pages.flatMap((page: UsersPage) => page.users) ?? []
+  const repositories = data?.pages.flatMap((page: RepositoriesPage) => page.repositories) ?? []
 
   return {
-    users,
+    repositories,
     isLoading,
     error,
     isError,
