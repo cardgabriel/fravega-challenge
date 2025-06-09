@@ -2,35 +2,6 @@ import { RESULTS_PER_PAGE } from '@/app/_lib/constants'
 import { UrlBuildParams } from '@/app/_models/types'
 
 /**
- * Extracts and processes pagination parameters from URL search params
- * per_page is always fixed to 40 for GitHub API
- * @param searchParams - URL search parameters
- * @returns Clean pagination object with only defined values
- */
-export function extractPaginationParams(searchParams: URLSearchParams): UrlBuildParams | undefined {
-  const since = searchParams.get('since')
-  const page = searchParams.get('page')
-
-  const params: UrlBuildParams = {}
-
-  if (since) {
-    const sinceNumber = parseInt(since, 10)
-    if (!isNaN(sinceNumber) && sinceNumber >= 0) {
-      params.since = sinceNumber
-    }
-  }
-
-  if (page) {
-    const pageNumber = parseInt(page, 10)
-    if (!isNaN(pageNumber) && pageNumber > 0) {
-      params.page = pageNumber
-    }
-  }
-
-  return Object.keys(params).length > 0 ? params : undefined
-}
-
-/**
  * Build URL with optional search and pagination parameters
  * per_page is always 40 for GitHub API consistency
  * @param baseUrl - Base URL

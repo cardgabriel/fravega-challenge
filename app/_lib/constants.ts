@@ -31,15 +31,15 @@ export const GITHUB_PATHS = {
       since,
     })
   },
-  SEARCH_USERS: (username: string, urlParams?: Pick<UrlBuildParams, 'page'>) =>
+  SEARCH_USERS: ({ searchQuery, page }: { searchQuery: string; page: number }) =>
     buildUrlWithParams('https://api.github.com/search/users', {
-      searchQuery: username,
-      page: urlParams?.page,
+      searchQuery,
+      page,
     }),
   GET_USER_BY_ID: (id: string) => `https://api.github.com/users/${id}`,
-  GET_USER_REPOS: (id: string, urlParams?: Pick<UrlBuildParams, 'page'>) => {
+  GET_USER_REPOS: ({ id, page }: { id: string; page: number }) => {
     return buildUrlWithParams(`https://api.github.com/users/${id}/repos`, {
-      page: urlParams?.page,
+      page,
     })
   },
 }

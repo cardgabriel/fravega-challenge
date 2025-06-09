@@ -10,9 +10,9 @@ import { AxiosError } from 'axios'
 export async function GET(request: NextRequest) {
   try {
     const searchParams = new URL(request.url).searchParams
+    const since = Number(searchParams.get('since')?.trim()) || 0
 
-    const since = searchParams.get('since')?.trim() || undefined
-    const users = await fetchGitHubUsers({ since: Number(since) })
+    const users = await fetchGitHubUsers({ since })
 
     const transformedUsers = users.map((user: GithubUser) => ({
       avatar_url: user.avatar_url,
