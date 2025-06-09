@@ -3,7 +3,7 @@
 import { User } from '@/app/_models/types'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import styles from './CardUser.module.scss'
 
@@ -14,12 +14,14 @@ interface CardUserProps {
 
 const CardUser = ({ user, onClick }: CardUserProps) => {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const urlQuery = searchParams.get('q') || ''
 
   const handleClick = () => {
     if (onClick) {
       onClick(user)
     } else {
-      router.push(`/user/${user.name}`)
+      router.push(`/user/${user.name}?q=${encodeURIComponent(urlQuery)}`)
     }
   }
 
