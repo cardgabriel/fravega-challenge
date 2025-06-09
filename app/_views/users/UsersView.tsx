@@ -9,7 +9,9 @@ import styles from './UsersView.module.scss'
 
 export default function UsersView() {
   const searchParams = useSearchParams()
+
   const searchQuery = searchParams.get('q') || ''
+
   const { users, isLoading, error, isError, triggerRef, isFetchingNextPage, hasNextPage } =
     useGetUsers(searchQuery)
 

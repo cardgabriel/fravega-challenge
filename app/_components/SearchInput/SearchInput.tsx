@@ -1,29 +1,33 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import styles from './SearchInput.module.scss'
 
 interface SearchInputProps {
-  onSearch: (query: string) => void
   placeholder?: string
-  initialValue?: string
 }
 
-export default function SearchInput({
-  onSearch,
-  placeholder = 'Search users...',
-  initialValue = '',
-}: SearchInputProps) {
-  const [query, setQuery] = useState(initialValue)
+export default function SearchInput({ placeholder = 'Search users...' }: SearchInputProps) {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [query, setQuery] = useState('')
 
   useEffect(() => {
-    setQuery(initialValue)
-  }, [initialValue])
+    const urlQuery = searchParams.get('q') || ''
+    setQuery(urlQuery)
+  }, [searchParams])
 
-  const handleSearch = () => {
-    onSearch(query)
-  }
+  const handleSearch = useCallback(() => {
+    const trimmedQuery = query.trim()
+    if (trimmedQuery) {
+      router.push(`/users?q=${encodeURIComponent(trimmedQuery)}`)
+    } else {
+      router.push('/users')
+    }
+  }, [query, router])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -33,7 +37,7 @@ export default function SearchInput({
 
   const handleClear = () => {
     setQuery('')
-    onSearch('')
+    router.push('/users')
   }
 
   return (
