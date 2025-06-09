@@ -10,7 +10,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/users" className={styles.logo}>
-          <h1>Github API</h1>
+          <span>Github API</span>
         </Link>
 
         <div className={styles.searchSection}>

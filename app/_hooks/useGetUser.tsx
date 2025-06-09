@@ -7,14 +7,14 @@ import { useQuery } from '@tanstack/react-query'
 interface UseGetUserReturn {
   user: DetailedUser | undefined
   isLoading: boolean
-  error: Error | null
+  isError: boolean
 }
 
 export const useGetUser = (userId: string): UseGetUserReturn => {
   const {
     data: user,
     isLoading,
-    error,
+    isError,
   } = useQuery<DetailedUser>({
     queryKey: [QUERY_KEYS.GET_USER, userId],
     queryFn: () => fetchUserById(userId),
@@ -24,6 +24,6 @@ export const useGetUser = (userId: string): UseGetUserReturn => {
   return {
     user,
     isLoading,
-    error,
+    isError,
   }
 }

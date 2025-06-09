@@ -1,6 +1,9 @@
 'use client'
 
 import CardUser from '@/app/_components/CardUser/CardUser'
+import Feedback from '@/app/_components/Feedback/Feedback'
+import Spinner from '@/app/_components/Spinner/Spinner'
+import { Title } from '@/app/_components/Title/Title'
 import { useGetUsers } from '@/app/_hooks/useGetUsers'
 
 import { useSearchParams } from 'next/navigation'
@@ -12,52 +15,29 @@ export default function UsersView() {
 
   const searchQuery = searchParams.get('q') || ''
 
-  const { users, isLoading, error, isError, triggerRef, isFetchingNextPage, hasNextPage } =
-    useGetUsers(searchQuery)
-
-  if (isLoading) {
-    return (
-      <div className={styles.loading}>
-        <h1>Cargando usuarios...</h1>
-      </div>
-    )
-  }
-
-  const displayError = isError ? (error as Error)?.message : null
-  if (displayError) {
-    return (
-      <div className={styles.error}>
-        <h1>Error</h1>
-        <p>Error loading users: {displayError}</p>
-      </div>
-    )
-  }
+  const { users, triggerRef, isFetchingNextPage, isLoading, isError } = useGetUsers(searchQuery)
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Users List</h1>
+      <Title label="Github Users List" />
 
       {searchQuery && (
         <p className={styles.searchInfo}>
-          Resultados para: <strong>&quot;{searchQuery}&quot;</strong>
+          Results for: <strong>&quot;{searchQuery}&quot;</strong>
         </p>
       )}
 
-      {users.length === 0 ? (
-        <p>No users found.</p>
-      ) : (
-        <div className={styles.usersList}>
-          {users.map((user) => (
-            <CardUser key={user.id} user={user} />
-          ))}
-        </div>
-      )}
+      <div className={styles.usersList}>
+        {isLoading && <Spinner />}
+        {users.map((user) => (
+          <CardUser key={user.id} user={user} />
+        ))}
+        {!users.length && !isLoading && <Feedback label="No users found" />}
+        {isError && <Feedback label="Error loading users" />}
+      </div>
 
       <div ref={triggerRef} className={styles.loadingTrigger}>
-        {isFetchingNextPage && <p className={styles.loadingMore}>Loading more users...</p>}
-        {!hasNextPage && users.length > 0 && (
-          <p className={styles.endMessage}>No more users to show</p>
-        )}
+        {isFetchingNextPage && <Spinner />}
       </div>
     </div>
   )

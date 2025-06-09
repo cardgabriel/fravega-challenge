@@ -10,7 +10,7 @@ import { useIntersectionObserver } from './useIntersectionObserver'
 
 export const useGetUsers = (searchQuery?: string) => {
   const { ref, inView } = useIntersectionObserver()
-  const { data, isLoading, error, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_USERS_INFINITE, searchQuery || ''],
       queryFn: ({ pageParam = searchQuery ? 1 : 0 }) =>
@@ -31,11 +31,9 @@ export const useGetUsers = (searchQuery?: string) => {
 
   return {
     users,
-    isLoading,
-    error,
-    isError,
     isFetchingNextPage,
-    hasNextPage,
     triggerRef: ref,
+    isLoading,
+    isError,
   }
 }

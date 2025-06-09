@@ -16,7 +16,7 @@ interface RepositoriesPage {
 export const useGetUserRepositories = (username: string) => {
   const { ref, inView } = useIntersectionObserver()
 
-  const { data, isLoading, error, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_USER_REPOS, username],
       queryFn: ({ pageParam = 1 }) => fetchUserRepositories({ username, pageParam }),
@@ -35,7 +35,6 @@ export const useGetUserRepositories = (username: string) => {
   return {
     repositories,
     isLoading,
-    error,
     isError,
     isFetchingNextPage,
     hasNextPage,
