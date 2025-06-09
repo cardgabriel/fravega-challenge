@@ -2,6 +2,13 @@
   padding: 16px 0;
 }
 
+.favButtonContainer {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+}
+
 .userCard {
   padding: 24px;
   margin-bottom: 24px;
@@ -11,6 +18,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 }
 
 .userHeader {
@@ -136,10 +144,6 @@
   font-weight: 500;
 }
 
-.reposSection {
-  padding: 16px;
-}
-
 .reposTitle {
   font-size: 20px;
   margin-bottom: 16px;
@@ -152,7 +156,7 @@
 
 .repoCard {
   padding: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
 }
 
 .repoName {
@@ -181,5 +185,5 @@
   align-items: center;
   padding: 1rem;
   font-size: 0.875rem;
-  color: #666;
+  color: var(--color-gray);
 }

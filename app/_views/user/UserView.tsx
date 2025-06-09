@@ -1,6 +1,7 @@
 'use client'
 
 import CardRepository from '@/app/_components/CardRepository/CardRepository'
+import FavButton from '@/app/_components/FavButton/FavButton'
 import Feedback from '@/app/_components/Feedback/Feedback'
 import Spinner from '@/app/_components/Spinner/Spinner'
 import { Title } from '@/app/_components/Title/Title'
@@ -34,6 +35,9 @@ export const UserView = ({ username }: { username: string }) => {
   return (
     <div className={styles.container}>
       <div className={styles.userCard}>
+        <div className={styles.favButtonContainer}>
+          <FavButton />
+        </div>
         <div className={styles.userHeader}>
           <Image
             src={user?.avatar ?? ''}
@@ -81,7 +85,7 @@ export const UserView = ({ username }: { username: string }) => {
 
       {reposLoading && <Spinner />}
       {reposError && <Feedback label="Error loading repositories" />}
-      <div className={styles.reposSection}>
+      <div>
         <Title label="Repositories" />
         <div className={styles.reposGrid}>
           {repositories.map((repo: Repository) => (
