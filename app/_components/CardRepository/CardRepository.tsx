@@ -5,18 +5,9 @@ import { Repository } from '@/app/_models/types'
 
 import styles from './CardRepository.module.scss'
 
-interface CardRepositoryProps {
-  repository: Repository
-  onClick?: (repository: Repository) => void
-}
-
-const CardRepository = ({ repository, onClick }: CardRepositoryProps) => {
+const CardRepository = ({ repository }: { repository: Repository }) => {
   const handleClick = () => {
-    if (onClick) {
-      onClick(repository)
-    } else {
-      window.open(repository.html_url, '_blank', 'noopener,noreferrer')
-    }
+    window.open(repository.html_url, '_blank', 'noopener,noreferrer')
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

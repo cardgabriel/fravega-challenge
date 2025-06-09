@@ -1,0 +1,22 @@
+.favorite_icon {
+  color: var(--color-gray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.favorite_active {
+    color: var(--color-primary);
+  }
+}
