@@ -1,10 +1,19 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
 import { GITHUB_PATHS } from '@/app/_lib/constants'
 
-export async function fetchGitHubUsers({ since }: { since?: number }) {
-  const url = GITHUB_PATHS.GET_ALL_USERS({ since })
+export async function fetchGitHubUsers({
+  since,
+  searchQuery,
+}: {
+  since?: number
+  searchQuery?: string
+}) {
+  const url = searchQuery
+    ? GITHUB_PATHS.SEARCH_USERS({ searchQuery, page: since ?? 1 })
+    : GITHUB_PATHS.GET_ALL_USERS({ since })
+
   const response = await axiosClient.get(url)
-  return response.data
+  return searchQuery ? response.data.items : response.data
 }
 
 export async function fetchGitHubUser(id: string) {

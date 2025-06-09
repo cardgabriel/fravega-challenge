@@ -1,18 +1,6 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
 import { API_PATHS } from '@/app/_lib/constants'
-import {
-  DetailedUser,
-  RepositoriesPage,
-  UrlBuildParams,
-  User,
-  UsersPage,
-} from '@/app/_models/types'
-
-export async function fetchUsers(username?: string, urlParams?: UrlBuildParams): Promise<User[]> {
-  const url = API_PATHS.USERS(urlParams)
-  const response = await axiosClient.get(url)
-  return response.data
-}
+import { DetailedUser, RepositoriesPage, UrlBuildParams, UsersPage } from '@/app/_models/types'
 
 export async function fetchUsersInfinite(
   pageParam: number = 0,
