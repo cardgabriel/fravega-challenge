@@ -11,7 +11,6 @@ export default function Header() {
       <div className={styles.container}>
         <Link href="/users" className={styles.logo}>
           <h1>Github API</h1>
-          <span>Challenge</span>
         </Link>
 
         <div className={styles.searchSection}>

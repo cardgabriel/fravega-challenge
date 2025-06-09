@@ -15,7 +15,6 @@ const CardRepository = ({ repository, onClick }: CardRepositoryProps) => {
     if (onClick) {
       onClick(repository)
     } else {
-      // Open repository in new tab
       window.open(repository.html_url, '_blank', 'noopener,noreferrer')
     }
   }
@@ -47,7 +46,9 @@ const CardRepository = ({ repository, onClick }: CardRepositoryProps) => {
         )}
         <div className={styles.metadata}>
           {repository.language && <span className={styles.language}>💻 {repository.language}</span>}
-          <span className={styles.stars}>⭐ {repository.stargazers_count}</span>
+          {repository.stargazers_count > 0 && (
+            <span className={styles.stars}>⭐ {repository.stargazers_count}</span>
+          )}
           <span className={styles.updated}>📅 {formatDate(repository.updated_at)}</span>
         </div>
       </div>
