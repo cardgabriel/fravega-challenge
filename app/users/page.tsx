@@ -7,13 +7,15 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 
 import { fetchUsersInfinite } from '../_services/apiService'
 
-const UsersPage = async () => {
+const UsersPage = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
   const queryClient = new QueryClient()
+  const searchQuery = (await searchParams).q || ''
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_USERS_INFINITE, ''],
-    queryFn: ({ pageParam = 0 }) => fetchUsersInfinite({ pageParam }),
-    initialPageParam: 0,
+    queryKey: [QUERY_KEYS.GET_USERS_INFINITE, searchQuery || ''],
+    queryFn: ({ pageParam = searchQuery ? 1 : 0 }) =>
+      fetchUsersInfinite({ pageParam, searchQuery }),
+    initialPageParam: searchQuery ? 1 : 0,
   })
 
   return (

@@ -3,43 +3,20 @@
 import { User } from '@/app/_models/types'
 
 import Image from 'next/image'
-import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 import styles from './CardUser.module.scss'
 
-interface CardUserProps {
-  user: User
-  onClick?: (user: User) => void
-}
-
-const CardUser = ({ user, onClick }: CardUserProps) => {
-  const router = useRouter()
+const CardUser = ({ user }: { user: User }) => {
   const searchParams = useSearchParams()
   const urlQuery = searchParams.get('q') || ''
 
-  const handleClick = () => {
-    if (onClick) {
-      onClick(user)
-    } else {
-      router.push(`/user/${user.name}?q=${encodeURIComponent(urlQuery)}`)
-    }
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      handleClick()
-    }
-  }
-
   return (
-    <div
+    <Link
+      href={`/user/${user.name}?q=${encodeURIComponent(urlQuery)}`}
       className={styles.user_container}
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      role="button"
       aria-label={`Usuario ${user.name}`}
-      tabIndex={0}
     >
       <div className={styles.avatar}>
         <Image
@@ -58,7 +35,7 @@ const CardUser = ({ user, onClick }: CardUserProps) => {
           <span>ID: {user.id}</span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
