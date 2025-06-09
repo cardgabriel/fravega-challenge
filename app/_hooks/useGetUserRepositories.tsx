@@ -13,13 +13,13 @@ interface RepositoriesPage {
   nextCursor: number | null
 }
 
-export const useGetUserRepositories = (userId: string) => {
+export const useGetUserRepositories = (username: string) => {
   const { ref, inView } = useIntersectionObserver()
 
   const { data, isLoading, error, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: [QUERY_KEYS.GET_USER_REPOS, userId],
-      queryFn: ({ pageParam = 1 }) => fetchUserRepositories(userId, pageParam),
+      queryKey: [QUERY_KEYS.GET_USER_REPOS, username],
+      queryFn: ({ pageParam = 1 }) => fetchUserRepositories({ username, pageParam }),
       getNextPageParam: (lastPage: RepositoriesPage) => lastPage.nextCursor,
       initialPageParam: 1,
     })

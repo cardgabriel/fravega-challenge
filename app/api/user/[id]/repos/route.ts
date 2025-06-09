@@ -32,7 +32,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       updated_at: repo.updated_at,
     }))
 
-    const nextCursor = transformedRepos.length === RESULTS_PER_PAGE ? Number(page) + 1 : null
+    const nextCursor = transformedRepos.length === RESULTS_PER_PAGE ? page + 1 : null
 
     return NextResponse.json({
       repositories: transformedRepos,

@@ -9,12 +9,8 @@ import Image from 'next/image'
 
 import styles from './UserView.module.scss'
 
-interface UserViewProps {
-  userId: string
-}
-
-export const UserView = ({ userId }: UserViewProps) => {
-  const { user, isLoading: userLoading, error: userError } = useGetUser(userId)
+export const UserView = ({ username }: { username: string }) => {
+  const { user, isLoading: userLoading, error: userError } = useGetUser(username)
   const {
     repositories,
     isLoading: reposLoading,
@@ -22,9 +18,9 @@ export const UserView = ({ userId }: UserViewProps) => {
     isFetchingNextPage,
     hasNextPage,
     triggerRef,
-  } = useGetUserRepositories(userId)
+  } = useGetUserRepositories(username)
 
-  if (!userId) {
+  if (!username) {
     return (
       <div className={styles.noUserId}>
         <p>No user ID provided</p>

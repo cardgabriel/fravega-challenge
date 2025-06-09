@@ -13,7 +13,8 @@ export const useGetUsers = (searchQuery?: string) => {
   const { data, isLoading, error, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_USERS_INFINITE, searchQuery || ''],
-      queryFn: ({ pageParam = searchQuery ? 1 : 0 }) => fetchUsersInfinite(pageParam, searchQuery),
+      queryFn: ({ pageParam = searchQuery ? 1 : 0 }) =>
+        fetchUsersInfinite({ pageParam, searchQuery }),
       getNextPageParam: (lastPage: UsersPage) => {
         return lastPage.nextCursor
       },

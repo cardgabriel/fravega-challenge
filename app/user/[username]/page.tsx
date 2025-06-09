@@ -23,7 +23,7 @@ const UserPage = async ({ params }: UserPageProps) => {
     }),
     queryClient.prefetchInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_USER_REPOS, username],
-      queryFn: ({ pageParam = 1 }) => fetchUserRepositories(username, pageParam),
+      queryFn: ({ pageParam = 1 }) => fetchUserRepositories({ username, pageParam }),
       initialPageParam: 1,
     }),
   ])
@@ -31,7 +31,7 @@ const UserPage = async ({ params }: UserPageProps) => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense fallback={<div>Cargando...</div>}>
-        <UserView userId={username} />
+        <UserView username={username} />
       </Suspense>
     </HydrationBoundary>
   )

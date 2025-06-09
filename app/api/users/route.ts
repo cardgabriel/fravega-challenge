@@ -10,9 +10,11 @@ import { AxiosError } from 'axios'
 export async function GET(request: NextRequest) {
   try {
     const searchParams = new URL(request.url).searchParams
-    const since = Number(searchParams.get('since')?.trim()) || 0
     const searchQuery = searchParams.get('q')?.trim() || ''
+    const since = Number(searchParams.get('since')?.trim()) || (searchQuery ? 1 : 0)
+
     const users = await fetchGitHubUsers({ since, searchQuery })
+
     const transformedUsers = users.map((user: GithubUser) => ({
       avatar_url: user.avatar_url,
       name: user.login,
@@ -22,7 +24,7 @@ export async function GET(request: NextRequest) {
     const nextCursor =
       transformedUsers.length === RESULTS_PER_PAGE
         ? searchQuery
-          ? Number(since) + 1
+          ? since + 1
           : transformedUsers[transformedUsers.length - 1].id
         : null
 

@@ -12,7 +12,7 @@ const UsersPage = async () => {
 
   await queryClient.prefetchInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_USERS_INFINITE, ''],
-    queryFn: ({ pageParam = 0 }) => fetchUsersInfinite(pageParam),
+    queryFn: ({ pageParam = 0 }) => fetchUsersInfinite({ pageParam }),
     initialPageParam: 0,
   })
 

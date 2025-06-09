@@ -1,17 +1,18 @@
 import { axiosClient } from '@/app/_lib/axiosClient'
 import { API_PATHS } from '@/app/_lib/constants'
-import { DetailedUser, RepositoriesPage, UrlBuildParams, UsersPage } from '@/app/_models/types'
+import { DetailedUser, RepositoriesPage, UsersPage } from '@/app/_models/types'
 
-export async function fetchUsersInfinite(
-  pageParam: number = 0,
+export async function fetchUsersInfinite({
+  pageParam,
+  searchQuery,
+}: {
+  pageParam: number
   searchQuery?: string
-): Promise<UsersPage> {
-  const urlParams: UrlBuildParams = {
+}): Promise<UsersPage> {
+  const url = API_PATHS.USERS({
     since: pageParam,
     searchQuery,
-  }
-
-  const url = API_PATHS.USERS(urlParams)
+  })
   const response = await axiosClient.get(url)
 
   const { users, nextCursor } = response.data
@@ -28,15 +29,14 @@ export async function fetchUserById(id: string): Promise<DetailedUser> {
   return response.data
 }
 
-export async function fetchUserRepositories(
-  username: string,
-  pageParam: number = 1
-): Promise<RepositoriesPage> {
-  const urlParams: UrlBuildParams = {
-    page: pageParam,
-  }
-
-  const url = API_PATHS.USER_REPOS(username, urlParams)
+export async function fetchUserRepositories({
+  username,
+  pageParam,
+}: {
+  username: string
+  pageParam: number
+}): Promise<RepositoriesPage> {
+  const url = API_PATHS.USER_REPOS({ username, page: pageParam })
   const response = await axiosClient.get(url)
 
   const { repositories, nextCursor } = response.data

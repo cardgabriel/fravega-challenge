@@ -19,7 +19,6 @@ const CardUser = ({ user, onClick }: CardUserProps) => {
     if (onClick) {
       onClick(user)
     } else {
-      // Navigate to user detail page
       router.push(`/user/${user.name}`)
     }
   }
