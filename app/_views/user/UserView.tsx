@@ -8,7 +8,7 @@ import { Title } from '@/app/_components/Title/Title'
 import { useFavorite } from '@/app/_hooks/useFavorite'
 import { useGetUser } from '@/app/_hooks/useGetUser'
 import { useGetUserRepositories } from '@/app/_hooks/useGetUserRepositories'
-import { Repository, User } from '@/app/_models/types'
+import { Repository } from '@/app/_models/types'
 
 import Image from 'next/image'
 
@@ -29,7 +29,11 @@ export const UserView = ({ username }: { username: string }) => {
 
   const handleFavoriteToggle = (isFavorite: boolean) => {
     if (isFavorite) {
-      addFavorite(user as unknown as User)
+      addFavorite({
+        id: user?.id as number,
+        name: user?.name || user?.username || '',
+        avatar_url: user?.avatar || '',
+      })
     } else {
       removeFavorite(user?.id as number)
     }

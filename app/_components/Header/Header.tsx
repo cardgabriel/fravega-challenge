@@ -5,13 +5,18 @@ import Link from 'next/link'
 import SearchInput from '../SearchInput/SearchInput'
 import styles from './Header.module.scss'
 
-export default function Header() {
+export default async function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/users" className={styles.logo}>
-          <span>Github API</span>
-        </Link>
+        <div className={styles.tabs}>
+          <Link href="/users" className={styles.tab}>
+            <span>Users</span>
+          </Link>
+          <Link href="/favorites" className={styles.tab}>
+            <span>Favorites</span>
+          </Link>
+        </div>
 
         <div className={styles.searchSection}>
           <Suspense fallback={<div className={styles.searchInput} />}>
