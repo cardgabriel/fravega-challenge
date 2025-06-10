@@ -7,7 +7,6 @@ import styles from './Sort.module.scss'
 export const Sort = ({ onSort }: { onSort: (direction: 'asc' | 'desc') => void }) => {
   const [direction, setDirection] = useState<'asc' | 'desc'>('asc')
 
-  // Simplified toggle function using object literal
   const toggleDirection = {
     asc: 'desc',
     desc: 'asc',
