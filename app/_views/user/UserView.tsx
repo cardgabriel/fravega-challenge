@@ -5,9 +5,10 @@ import FavButton from '@/app/_components/FavButton/FavButton'
 import Feedback from '@/app/_components/Feedback/Feedback'
 import Spinner from '@/app/_components/Spinner/Spinner'
 import { Title } from '@/app/_components/Title/Title'
+import { useFavorite } from '@/app/_hooks/useFavorite'
 import { useGetUser } from '@/app/_hooks/useGetUser'
 import { useGetUserRepositories } from '@/app/_hooks/useGetUserRepositories'
-import { Repository } from '@/app/_models/types'
+import { Repository, User } from '@/app/_models/types'
 
 import Image from 'next/image'
 
@@ -24,6 +25,15 @@ export const UserView = ({ username }: { username: string }) => {
     triggerRef,
   } = useGetUserRepositories(username)
 
+  const { addFavorite, removeFavorite, isFavorite } = useFavorite()
+
+  const handleFavoriteToggle = (isFavorite: boolean) => {
+    if (isFavorite) {
+      addFavorite(user as unknown as User)
+    } else {
+      removeFavorite(user?.id as number)
+    }
+  }
   if (userLoading) {
     return <Spinner />
   }
@@ -36,7 +46,10 @@ export const UserView = ({ username }: { username: string }) => {
     <div className={styles.container}>
       <div className={styles.userCard}>
         <div className={styles.favButtonContainer}>
-          <FavButton />
+          <FavButton
+            initialState={isFavorite(user?.id as number)}
+            onToggle={handleFavoriteToggle}
+          />
         </div>
         <div className={styles.userHeader}>
           <Image

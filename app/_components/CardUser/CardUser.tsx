@@ -1,6 +1,7 @@
 'use client'
 
 import FavButton from '@/app/_components/FavButton/FavButton'
+import { useFavorite } from '@/app/_hooks/useFavorite'
 import { User } from '@/app/_models/types'
 
 import Image from 'next/image'
@@ -12,9 +13,14 @@ import styles from './CardUser.module.scss'
 const CardUser = ({ user }: { user: User }) => {
   const searchParams = useSearchParams()
   const urlQuery = searchParams.get('q') || ''
+  const { addFavorite, removeFavorite, isFavorite } = useFavorite()
 
   const handleFavoriteToggle = (isFavorite: boolean) => {
-    console.log('Favorite toggled for user:', user.name, 'state:', isFavorite)
+    if (isFavorite) {
+      addFavorite(user)
+    } else {
+      removeFavorite(user.id)
+    }
   }
 
   return (
@@ -40,7 +46,7 @@ const CardUser = ({ user }: { user: User }) => {
           <span>ID: {user.id}</span>
         </div>
       </div>
-      <FavButton onToggle={handleFavoriteToggle} />
+      <FavButton initialState={isFavorite(user.id)} onToggle={handleFavoriteToggle} />
     </Link>
   )
 }

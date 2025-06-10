@@ -19,6 +19,7 @@ export interface DetailedUser {
   location: string | null
   followers_count: number
   following_count: number
+  id: number
 }
 
 // Repository type

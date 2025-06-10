@@ -24,6 +24,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       location: userData.location ?? null,
       followers_count: userData.followers || 0,
       following_count: userData.following || 0,
+      id: userData.id,
     }
 
     return NextResponse.json(transformedData)
