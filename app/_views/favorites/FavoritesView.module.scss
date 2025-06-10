@@ -3,13 +3,11 @@
   margin: 0 auto;
 }
 
-.title {
-  font-size: 24px;
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
 }
 
 .searchInfo {
