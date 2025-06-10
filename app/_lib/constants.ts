@@ -8,35 +8,44 @@ export const QUERY_KEYS = {
   GET_USER_REPOS: 'get-user-repos',
 }
 
+export const CLIENT_PATHS = {
+  USERS: '/users',
+  FAVORITES: '/favorites',
+  USER_DETAILS: (username: string) => `/user/${username}`,
+}
+
+const BASE_API_PATH = '/api'
+const BASE_GITHUB_API_URL = 'https://api.github.com'
+
 export const API_PATHS = {
-  USER_BY_ID: (id: string) => `/api/user/${id}`,
+  USER_BY_ID: (id: string) => `${BASE_API_PATH}/user/${id}`,
   USERS: ({ searchQuery, since }: { searchQuery?: string; since?: number }) => {
-    return buildUrlWithParams('/api/users', {
+    return buildUrlWithParams(`${BASE_API_PATH}/users`, {
       searchQuery,
       since,
     })
   },
   USER_REPOS: ({ username, page }: { username: string; page?: number }) => {
-    return buildUrlWithParams(`/api/user/${username}/repos`, {
+    return buildUrlWithParams(`${BASE_API_PATH}/user/${username}/repos`, {
       page,
     })
   },
 }
 
 export const GITHUB_PATHS = {
-  GET_USER_BY_ID: (id: string) => `https://api.github.com/users/${id}`,
+  GET_USER_BY_ID: (id: string) => `${BASE_GITHUB_API_URL}/users/${id}`,
   GET_ALL_USERS: ({ since }: { since?: number }) => {
-    return buildUrlWithParams('https://api.github.com/users', {
+    return buildUrlWithParams(`${BASE_GITHUB_API_URL}/users`, {
       since,
     })
   },
   SEARCH_USERS: ({ searchQuery, page }: { searchQuery: string; page: number }) =>
-    buildUrlWithParams('https://api.github.com/search/users', {
+    buildUrlWithParams(`${BASE_GITHUB_API_URL}/search/users`, {
       searchQuery,
       page,
     }),
   GET_USER_REPOS: ({ id, page }: { id: string; page: number }) => {
-    return buildUrlWithParams(`https://api.github.com/users/${id}/repos`, {
+    return buildUrlWithParams(`${BASE_GITHUB_API_URL}/users/${id}/repos`, {
       page,
     })
   },

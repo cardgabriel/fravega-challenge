@@ -1,16 +1,13 @@
-// User types for API responses
 export interface User {
   id: number
   avatar_url: string
   name: string
 }
 
-// Error response type
 export interface ErrorResponse {
   error: string
 }
 
-// Detailed user response for individual user endpoint
 export interface DetailedUser {
   avatar: string
   username: string
@@ -22,7 +19,6 @@ export interface DetailedUser {
   id: number
 }
 
-// Repository type
 export interface Repository {
   id: number
   name: string
@@ -34,7 +30,6 @@ export interface Repository {
   updated_at: string
 }
 
-// Pagination interface for GitHub API requests
 export interface UrlBuildParams {
   searchQuery?: string
   since?: number
@@ -42,7 +37,6 @@ export interface UrlBuildParams {
   q?: string
 }
 
-// GitHub API user structure
 export interface GithubUser {
   name?: string | null
   email?: string | null
@@ -66,7 +60,6 @@ export interface GithubUser {
   site_admin: boolean
   starred_at?: string
   user_view_type?: string
-  // Additional fields for detailed user info
   company?: string | null
   location?: string | null
   followers?: number
@@ -74,7 +67,6 @@ export interface GithubUser {
   public_repos?: number
 }
 
-// GitHub API repository structure
 export interface GithubRepository {
   id: number
   name: string

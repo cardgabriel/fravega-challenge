@@ -3,7 +3,6 @@ import { UrlBuildParams } from '@/app/_models/types'
 
 /**
  * Build URL with optional search and pagination parameters
- * per_page is always 40 for GitHub API consistency
  * @param baseUrl - Base URL
  * @param params - Optional object containing search and pagination parameters
  * @returns URL with query parameters if provided

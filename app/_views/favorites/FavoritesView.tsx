@@ -10,7 +10,6 @@ import styles from './FavoritesView.module.scss'
 
 const CardUser = dynamic(() => import('@/app/_components/CardUser/CardUser'), {
   ssr: false,
-  loading: () => <Spinner />,
 })
 
 const Feedback = dynamic(() => import('@/app/_components/Feedback/Feedback'), {

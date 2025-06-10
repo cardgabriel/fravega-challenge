@@ -102,19 +102,21 @@ export const UserView = ({ username }: { username: string }) => {
 
       {reposLoading && <Spinner />}
       {reposError && <Feedback label="Error loading repositories" />}
-      <div>
-        <Title label="Repositories" />
-        <div className={styles.reposGrid}>
-          {repositories.map((repo: Repository) => (
-            <CardRepository key={`${repo.id}-${repo.full_name}`} repository={repo} />
-          ))}
-        </div>
-        {hasNextPage && (
-          <div ref={triggerRef} className={styles.loadingMore}>
-            {isFetchingNextPage ? <Spinner /> : ''}
+      {!reposLoading && !reposError && repositories.length > 0 && (
+        <div>
+          <Title label="Repositories" />
+          <div className={styles.reposGrid}>
+            {repositories.map((repo: Repository) => (
+              <CardRepository key={`${repo.id}-${repo.full_name}`} repository={repo} />
+            ))}
           </div>
-        )}
-      </div>
+          {hasNextPage && (
+            <div ref={triggerRef} className={styles.loadingMore}>
+              {isFetchingNextPage ? <Spinner /> : ''}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

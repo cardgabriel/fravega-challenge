@@ -1,5 +1,7 @@
 'use client'
 
+import { CLIENT_PATHS } from '@/app/_lib/constants'
+
 import { useCallback, useEffect, useState } from 'react'
 
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -23,9 +25,9 @@ export default function SearchInput({ placeholder = 'Search users...' }: SearchI
   const handleSearch = useCallback(() => {
     const trimmedQuery = query.trim()
     if (trimmedQuery) {
-      router.push(`/users?q=${encodeURIComponent(trimmedQuery)}`)
+      router.push(`${CLIENT_PATHS.USERS}?q=${encodeURIComponent(trimmedQuery)}`)
     } else {
-      router.push('/users')
+      router.push(CLIENT_PATHS.USERS)
     }
   }, [query, router])
 
@@ -37,7 +39,7 @@ export default function SearchInput({ placeholder = 'Search users...' }: SearchI
 
   const handleClear = () => {
     setQuery('')
-    router.push('/users')
+    router.push(CLIENT_PATHS.USERS)
   }
 
   return (
