@@ -12,20 +12,13 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ username: string }>
+  params: { username: string }
 }): Promise<Metadata> {
-  const { username } = await params
-  try {
-    const user = await fetchUserById(username)
-    return {
-      title: `${user.name || user.username}'s Profile`,
-      description: `Explore the profile and repositories of ${user.name || user.username}.`,
-    }
-  } catch {
-    return {
-      title: 'User Not Found',
-      description: 'The profile for this user could not be loaded.',
-    }
+  const { username } = params
+
+  return {
+    title: `${username}'s Profile`,
+    description: `Explore the profile and repositories of ${username}.`,
   }
 }
 
