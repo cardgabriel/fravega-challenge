@@ -1,13 +1,11 @@
-'use client'
+import { type Metadata } from 'next'
 
-import dynamic from 'next/dynamic'
+import FavoritesView from '../_views/favorites/FavoritesView'
 
-import Spinner from '../_components/Spinner/Spinner'
-
-const FavoritesView = dynamic(() => import('@/app/_views/favorites/FavoritesView'), {
-  ssr: false,
-  loading: () => <Spinner />,
-})
+export const metadata: Metadata = {
+  title: 'Favorite Users',
+  description: 'Manage your list of favorite GitHub users.',
+}
 
 const FavoritesPage = () => {
   return <FavoritesView />

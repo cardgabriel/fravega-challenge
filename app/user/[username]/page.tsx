@@ -5,7 +5,29 @@ import { UserView } from '@/app/_views/user/UserView'
 
 import { Suspense } from 'react'
 
+import { type Metadata } from 'next'
+
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { username: string }
+}): Promise<Metadata> {
+  const { username } = params
+  try {
+    const user = await fetchUserById(username)
+    return {
+      title: `${user.name || user.username}'s Profile`,
+      description: `Explore the profile and repositories of ${user.name || user.username}.`,
+    }
+  } catch {
+    return {
+      title: 'User Not Found',
+      description: 'The profile for this user could not be loaded.',
+    }
+  }
+}
 
 interface UserPageProps {
   params: Promise<{

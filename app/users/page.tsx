@@ -3,10 +3,17 @@ import UsersView from '@/app/_views/users/UsersView'
 
 import { Suspense } from 'react'
 
+import { type Metadata } from 'next'
+
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import Spinner from '../_components/Spinner/Spinner'
 import { fetchUsersInfinite } from '../_services/apiService'
+
+export const metadata: Metadata = {
+  title: 'Search Users',
+  description: 'Search for GitHub users and view their profiles.',
+}
 
 const UsersPage = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
   const queryClient = new QueryClient()
