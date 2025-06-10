@@ -38,8 +38,7 @@ Se implementaron tests unitarios y de integración con **Jest** y **React Testin
 
 ## 🛠️ Stack Tecnológico
 
-- **Framework**: Next.js 15 (App Router)
-- **UI**: React 19
+- **Framework**: Next.js 15 (App Router and React 19)
 - **Lenguaje**: TypeScript
 - **Data Fetching**: TanStack Query v5
 - **HTTP Client**: Axios
