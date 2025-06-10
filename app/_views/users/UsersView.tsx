@@ -30,7 +30,7 @@ export default function UsersView() {
       <div className={styles.usersList} role="feed" aria-busy={isLoading} aria-label="Users list">
         {isLoading && <Spinner />}
         {users.map((user) => (
-          <CardUser key={user.id} user={user} />
+          <CardUser key={`user-${user.id}`} user={user} />
         ))}
         {!users.length && !isLoading && (
           <Feedback label="No users found" role="alert" aria-live="assertive" />

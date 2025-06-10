@@ -15,7 +15,7 @@ export default function FavoritesView() {
       <Title label="Favorites Users List" />
       <div className={styles.usersList} role="feed" aria-label="Favorite users">
         {favorites.map((user) => (
-          <CardUser key={user.id} user={user} />
+          <CardUser key={`favorite-${user.id}`} user={user} />
         ))}
         {!favorites.length && (
           <Feedback label="No saved favorites" role="status" aria-live="polite" />
