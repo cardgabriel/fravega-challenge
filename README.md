@@ -2,7 +2,7 @@
 
 Aplicación que usa la API de Github. Construida con Next.js 15 (App Router), TypeScript y React Query.
 
-**[Deployment](https://your-deployment-link.com)**
+**[Deployment](https://fravega-challenge-git-main-cardgabriels-projects.vercel.app/users)**
 
 ---
 
@@ -57,7 +57,7 @@ Se implementaron tests unitarios y de integración con **Jest** y **React Testin
 
     ```bash
     # Reemplaza la URL con la de tu repositorio
-    git clone https://github.com/tu-usuario/tu-repositorio.git
+    git clone git@github.com:cardgabriel/fravega-challenge.git
     cd tu-repositorio
     npm install
     ```
