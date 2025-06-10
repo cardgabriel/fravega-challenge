@@ -1,21 +1,11 @@
 'use client'
 
-import Spinner from '@/app/_components/Spinner/Spinner'
+import CardUser from '@/app/_components/CardUser/CardUser'
+import Feedback from '@/app/_components/Feedback/Feedback'
 import { Title } from '@/app/_components/Title/Title'
 import { useFavorite } from '@/app/_hooks/useFavorite'
 
-import dynamic from 'next/dynamic'
-
 import styles from './FavoritesView.module.scss'
-
-const CardUser = dynamic(() => import('@/app/_components/CardUser/CardUser'), {
-  ssr: false,
-})
-
-const Feedback = dynamic(() => import('@/app/_components/Feedback/Feedback'), {
-  ssr: false,
-  loading: () => <Spinner />,
-})
 
 export default function FavoritesView() {
   const { favorites } = useFavorite()

@@ -1,5 +1,8 @@
+import { Suspense } from 'react'
+
 import { type Metadata } from 'next'
 
+import Spinner from '../_components/Spinner/Spinner'
 import FavoritesView from '../_views/favorites/FavoritesView'
 
 export const metadata: Metadata = {
@@ -7,8 +10,10 @@ export const metadata: Metadata = {
   description: 'Manage your list of favorite GitHub users.',
 }
 
-const FavoritesPage = () => {
-  return <FavoritesView />
+export default async function FavoritesPage() {
+  return (
+    <Suspense fallback={<Spinner />}>
+      <FavoritesView />
+    </Suspense>
+  )
 }
-
-export default FavoritesPage
