@@ -6,7 +6,7 @@ Aplicación que usa la API de Github. Construida con Next.js 15 (App Router), Ty
 
 ---
 
-## Technical Decisions & Rationale
+## Technical Decisions
 
 A continuación, se detallan las decisiones clave de arquitectura:
 
@@ -36,7 +36,7 @@ Se implementaron tests unitarios y de integración con **Jest** y **React Testin
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Stack
 
 - **Framework**: Next.js 15 (App Router and React 19)
 - **Lenguaje**: TypeScript
@@ -55,14 +55,13 @@ Se implementaron tests unitarios y de integración con **Jest** y **React Testin
 1.  **Clonar y configurar el proyecto:**
 
     ```bash
-    # Reemplaza la URL con la de tu repositorio
     git clone git@github.com:cardgabriel/fravega-challenge.git
     cd tu-repositorio
     npm install
     ```
 
 2.  **Variables de entorno:**
-    Crea un archivo `.env.local` en la raíz y configura tu Github Token(solo en caso de que hayas pasado el rate limit).
+    Crea un archivo `.env.local` en la raíz y configura tu Github Token(solo en caso de que excedas el rate limit).
 
     ```env
     GITHUB_TOKEN=<TU_TOKEN>
