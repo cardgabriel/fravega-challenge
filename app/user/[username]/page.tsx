@@ -12,9 +12,9 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 export async function generateMetadata({
   params,
 }: {
-  params: { username: string }
+  params: Promise<{ username: string }>
 }): Promise<Metadata> {
-  const { username } = params
+  const { username } = await params
   try {
     const user = await fetchUserById(username)
     return {
