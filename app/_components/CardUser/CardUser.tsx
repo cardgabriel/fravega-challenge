@@ -28,7 +28,7 @@ const CardUser = ({ user }: { user: User }) => {
   return (
     <Link
       href={`/user/${user.name}?q=${encodeURIComponent(urlQuery)}`}
-      className={styles.user_container}
+      className={styles.userContainer}
       aria-label={`View ${user.name}'s profile`}
     >
       <div className={styles.avatar} aria-hidden="true">

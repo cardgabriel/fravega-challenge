@@ -1,4 +1,4 @@
-.favorite_icon {
+.favoriteIcon {
   color: var(--color-gray);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -16,7 +16,7 @@
     height: 24px;
   }
 
-  &.favorite_active {
+  &.favoriteActive {
     color: var(--color-primary);
   }
 }

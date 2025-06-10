@@ -22,7 +22,7 @@ const FavButton = ({ initialState = false, onToggle, className = '' }: FavButton
 
   return (
     <div
-      className={`${styles.favorite_icon} ${isFavorite ? styles.favorite_active : ''} ${className}`}
+      className={`${styles.favoriteIcon} ${isFavorite ? styles.favoriteActive : ''} ${className}`}
       onClick={handleFavoriteClick}
       role="button"
       tabIndex={0}

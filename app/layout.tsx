@@ -25,11 +25,11 @@ export default function RootLayout({
       </head>
       <body className={workSans.className}>
         <Providers>
-          <a href="#main-content" className="skip-link">
+          <a href="#main-content" className="skipLink">
             Saltar al contenido principal
           </a>
           <Header />
-          <main id="main-content" className="page-container">
+          <main id="main-content" className="pageContainer">
             {children}
           </main>
         </Providers>

@@ -19,7 +19,7 @@ const CardRepository = ({ repository }: { repository: Repository }) => {
 
   return (
     <div
-      className={styles.repository_container}
+      className={styles.repositoryContainer}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       role="button"
