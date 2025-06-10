@@ -111,7 +111,7 @@ export const UserView = ({ username }: { username: string }) => {
         </div>
         {hasNextPage && (
           <div ref={triggerRef} className={styles.loadingMore}>
-            {isFetchingNextPage ? 'Loading more...' : ''}
+            {isFetchingNextPage ? <Spinner /> : ''}
           </div>
         )}
       </div>

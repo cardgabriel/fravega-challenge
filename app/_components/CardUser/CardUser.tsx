@@ -27,12 +27,12 @@ const CardUser = ({ user }: { user: User }) => {
     <Link
       href={`/user/${user.name}?q=${encodeURIComponent(urlQuery)}`}
       className={styles.user_container}
-      aria-label={`Usuario ${user.name}`}
+      aria-label={`User ${user.name}`}
     >
       <div className={styles.avatar}>
         <Image
           src={user.avatar_url}
-          alt={`Avatar de ${user.name}`}
+          alt={`Avatar of ${user.name}`}
           width={100}
           height={100}
           loading="lazy"

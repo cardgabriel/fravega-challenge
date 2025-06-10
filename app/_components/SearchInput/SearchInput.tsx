@@ -52,11 +52,7 @@ export default function SearchInput({ placeholder = 'Search users...' }: SearchI
           className={styles.searchInput}
         />
         {query && (
-          <button
-            onClick={handleClear}
-            className={styles.clearButton}
-            aria-label="Limpiar búsqueda"
-          >
+          <button onClick={handleClear} className={styles.clearButton} aria-label="Clean Search">
             ✕
           </button>
         )}

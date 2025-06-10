@@ -1,3 +1,4 @@
+import Spinner from '@/app/_components/Spinner/Spinner'
 import { QUERY_KEYS } from '@/app/_lib/constants'
 import { fetchUserById, fetchUserRepositories } from '@/app/_services/apiService'
 import { UserView } from '@/app/_views/user/UserView'
@@ -30,7 +31,7 @@ const UserPage = async ({ params }: UserPageProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<Spinner />}>
         <UserView username={username} />
       </Suspense>
     </HydrationBoundary>

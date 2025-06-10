@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
+import Spinner from '../_components/Spinner/Spinner'
 import { fetchUsersInfinite } from '../_services/apiService'
 
 const UsersPage = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
@@ -20,7 +21,7 @@ const UsersPage = async ({ searchParams }: { searchParams: Promise<{ q: string }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<Spinner />}>
         <UsersView />
       </Suspense>
     </HydrationBoundary>
