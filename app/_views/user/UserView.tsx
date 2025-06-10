@@ -31,7 +31,7 @@ export const UserView = ({ username }: { username: string }) => {
     if (isFavorite) {
       addFavorite({
         id: user?.id as number,
-        name: user?.name || user?.username || '',
+        name: user?.username || '',
         avatar_url: user?.avatar || '',
       })
     } else {

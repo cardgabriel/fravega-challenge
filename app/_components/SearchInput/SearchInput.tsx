@@ -41,22 +41,33 @@ export default function SearchInput({ placeholder = 'Search users...' }: SearchI
   }
 
   return (
-    <div className={styles.searchContainer}>
+    <div className={styles.searchContainer} role="search">
       <div className={styles.inputWrapper}>
         <input
-          type="text"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className={styles.searchInput}
+          aria-label={placeholder}
         />
         {query && (
-          <button onClick={handleClear} className={styles.clearButton} aria-label="Clean Search">
+          <button
+            onClick={handleClear}
+            className={styles.clearButton}
+            aria-label="Limpiar búsqueda"
+            type="button"
+          >
             ✕
           </button>
         )}
-        <button onClick={handleSearch} className={styles.searchButton} aria-label="Search">
+        <button
+          onClick={handleSearch}
+          className={styles.searchButton}
+          aria-label="Buscar"
+          type="submit"
+        >
           SEARCH
         </button>
       </div>

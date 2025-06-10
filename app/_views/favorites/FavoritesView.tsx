@@ -11,14 +11,16 @@ export default function FavoritesView() {
   const { favorites } = useFavorite()
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container} aria-label="Favorite users list">
       <Title label="Favorites Users List" />
-      <div className={styles.usersList}>
+      <div className={styles.usersList} role="feed" aria-label="Favorite users">
         {favorites.map((user) => (
           <CardUser key={user.id} user={user} />
         ))}
-        {!favorites.length && <Feedback label="No saved favorites" />}
+        {!favorites.length && (
+          <Feedback label="No saved favorites" role="status" aria-live="polite" />
+        )}
       </div>
-    </div>
+    </section>
   )
 }

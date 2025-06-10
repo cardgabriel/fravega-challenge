@@ -1,8 +1,14 @@
+import { HTMLAttributes } from 'react'
+
 import styles from './Feedback.module.scss'
 
-const Feedback = ({ label }: { label: string }) => {
+interface FeedbackProps extends HTMLAttributes<HTMLDivElement> {
+  label: string
+}
+
+const Feedback = ({ label, ...props }: FeedbackProps) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={styles.icon}
@@ -10,6 +16,7 @@ const Feedback = ({ label }: { label: string }) => {
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={1.5}
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"

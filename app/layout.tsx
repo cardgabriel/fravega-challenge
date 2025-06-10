@@ -20,10 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className={workSans.className}>
         <Providers>
+          <a href="#main-content" className="skip-link">
+            Saltar al contenido principal
+          </a>
           <Header />
-          <div className="page-container">{children}</div>
+          <main id="main-content" className="page-container">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
